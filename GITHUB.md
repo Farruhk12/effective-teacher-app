@@ -11,7 +11,22 @@
 1. В репозитории на GitHub откройте **Settings** → **Pages**.
 2. В блоке **Build and deployment** выберите **Source**: **GitHub Actions**.
 3. Запушьте этот проект (в нём уже есть workflow для деплоя). После пуша в ветку `main` автоматически запустится сборка и публикация.
-4. Готовый сайт будет по адресу: **https://farruhk12.github.io/effective-teacher/**
+4. Готовый сайт открывается по ссылке:
+   **https://farruhk12.github.io/effective-teacher-app/**
+
+### Если по ссылке пустая страница и в консоли 404 (index.tsx, index.css)
+
+Значит, GitHub Pages сейчас раздаёт **исходники** из ветки, а не собранный сайт. Исправление:
+
+1. Зайдите в репозиторий на GitHub → **Settings** → **Pages**.
+2. В блоке **Build and deployment** в поле **Source** выберите **GitHub Actions** (не «Deploy from a branch»).
+3. Сохраните. Подождите 1–2 минуты и откройте снова: **https://farruhk12.github.io/effective-teacher-app/**
+
+Проверить, что деплой прошёл: вкладка **Actions** в репозитории — последний workflow «Deploy to GitHub Pages» должен быть зелёным (успех).
+
+**Если деплой упал по таймауту** (Timeout / purging_cdn): откройте вкладку **Actions** → выберите упавший запуск → нажмите **Re-run all jobs**. Часто повторный запуск проходит успешно.
+
+---
 
 ## Шаг 1. Создать репозиторий на GitHub
 
