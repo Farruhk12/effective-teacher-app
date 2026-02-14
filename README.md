@@ -17,7 +17,7 @@ View your app in AI Studio: https://ai.studio/apps/drive/1I1BbbPs4x5z-9oSZjN5GbF
 3. Запустите приложение одной командой: **`npm start`** — откроется браузер с приложением.  
    (Или `npm run dev`, затем откройте вручную http://localhost:3000)
 
-**Сайт на GitHub Pages:** https://farruhk12.github.io/effective-teacher-app/
+**Сайт на GitHub Pages:** https://atsmu.github.io/effective-teacher-app/
 
 ### Почему нельзя просто открыть index.html?
 

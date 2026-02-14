@@ -197,8 +197,68 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
         </div>
       )}
 
-      {/* Таблица по дням */}
-      <div className="space-y-6">
+      {/* Мобильная версия: компактные карточки по дням */}
+      <div className="space-y-4 sm:hidden">
+        {[1, 2, 3, 4, 5, 6, 7].map(day => {
+          const items = scheduleByDay(day);
+          if (items.length === 0 && schedule.length > 0) return null;
+          return (
+            <div key={day} className="rounded-2xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 overflow-hidden">
+              <div className="px-3 py-2 bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-600 font-bold text-slate-800 dark:text-slate-200 text-sm">
+                {DAY_NAMES[day]}
+              </div>
+              <ul className="divide-y divide-slate-100 dark:divide-slate-700">
+                {items.length === 0 ? (
+                  <li className="px-3 py-4 text-slate-500 dark:text-slate-400 text-sm">Нет занятий</li>
+                ) : (
+                  items.map(item => {
+                    const lesson = lessons.find(l => l.id === item.lessonId);
+                    const title = lesson?.title ?? item.lessonId;
+                    const curatorsStr = item.curators.length ? item.curators.join(', ') : '—';
+                    return (
+                      <li key={item.id} className="px-3 py-2.5 flex items-start gap-2">
+                        <div className="min-w-0 flex-1">
+                          {lesson && onNavigateToLesson && !isAdmin ? (
+                            <button type="button" onClick={() => onNavigateToLesson(lesson)} className="text-left text-[#10408A] dark:text-[#6ba3f5] font-bold text-sm leading-tight line-clamp-2">
+                              {title}
+                            </button>
+                          ) : (
+                            <span className="text-slate-900 dark:text-white font-medium text-sm leading-tight line-clamp-2">{title}</span>
+                          )}
+                          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            <span>{formatStartTime(item.startTime)}</span>
+                            <span>·</span>
+                            <span>{item.durationHours} ч</span>
+                            {curatorsStr !== '—' && (
+                              <>
+                                <span>·</span>
+                                <span className="truncate max-w-[180px]" title={curatorsStr}>{curatorsStr}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                        {isAdmin && (
+                          <div className="flex gap-1 shrink-0">
+                            <button onClick={() => startEdit(item)} className="p-1.5 text-slate-500 hover:text-indigo-600 dark:hover:text-[#6ba3f5] rounded-lg" title="Изменить">
+                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                            </button>
+                            <button onClick={() => onDelete(item.id)} className="p-1.5 text-slate-500 hover:text-red-600 dark:hover:text-red-400 rounded-lg" title="Удалить">
+                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            </button>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })
+                )}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Таблица по дням (планшеты и десктоп) */}
+      <div className="hidden sm:block space-y-6">
         {[1, 2, 3, 4, 5, 6, 7].map(day => {
           const items = scheduleByDay(day);
           if (items.length === 0 && schedule.length > 0) return null;

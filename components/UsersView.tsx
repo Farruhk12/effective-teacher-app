@@ -111,10 +111,12 @@ const UsersView: React.FC<UsersViewProps> = ({ users, onUpdateUsers, lessons, ta
               </div>
             </div>
             
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0 ml-2">
-              <button onClick={() => setInspectingUserId(user.id)} className="px-3 py-2 bg-slate-50 text-slate-600 rounded-lg sm:rounded-xl text-[9px] sm:text-xs font-bold hover:bg-[#10408A]/10 hover:text-[#10408A] transition-all">Детали</button>
-              <button onClick={() => onDeleteUser(user.id)} className="p-2 text-slate-300 hover:text-rose-500 transition-colors"><svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button>
-            </div>
+            {user.role !== 'admin' && (
+              <div className="flex items-center gap-1 sm:gap-2 shrink-0 ml-2">
+                <button onClick={() => setInspectingUserId(user.id)} className="px-3 py-2 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg sm:rounded-xl text-[9px] sm:text-xs font-bold hover:bg-[#10408A]/10 hover:text-[#10408A] transition-all">Детали</button>
+                <button onClick={() => onDeleteUser(user.id)} className="p-2 text-slate-300 hover:text-rose-500 transition-colors"><svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -122,16 +124,31 @@ const UsersView: React.FC<UsersViewProps> = ({ users, onUpdateUsers, lessons, ta
       {inspectingUser && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
           <div className="bg-white dark:bg-slate-800 rounded-[32px] sm:rounded-[40px] w-full max-w-3xl shadow-2xl overflow-hidden max-h-[95vh] flex flex-col">
-            <div className="p-6 sm:p-8 border-b border-slate-50 flex justify-between items-center">
+            <div className="p-6 sm:p-8 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
               <div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900">Детали тестов</h3>
-                <p className="text-xs sm:text-sm text-slate-500">{inspectingUser.name}</p>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">Детали пользователя</h3>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">{inspectingUser.name}</p>
               </div>
-              <button type="button" onClick={() => setInspectingUserId(null)} className="text-slate-400 p-2">
+              <button type="button" onClick={() => setInspectingUserId(null)} className="text-slate-400 p-2 hover:text-slate-600 dark:hover:text-slate-300">
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
             <div className="p-6 sm:p-8 space-y-4 overflow-y-auto">
+              {inspectingUser.role === 'listener' && (
+                <div className="bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-2xl p-4 sm:p-5">
+                  <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Доступ для входа</p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-0.5">Логин</p>
+                      <p className="text-sm font-mono font-bold text-slate-900 dark:text-white break-all">{inspectingUser.login}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-0.5">Пароль</p>
+                      <p className="text-sm font-mono font-bold text-slate-900 dark:text-white break-all">{inspectingUser.password}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
               {lessonsWithTests.length === 0 ? (
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center text-slate-500 text-sm font-bold">
                   Нет занятий с тестами.
