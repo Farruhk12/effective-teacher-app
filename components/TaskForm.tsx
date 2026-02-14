@@ -37,7 +37,7 @@ const RichTextEditor: React.FC<{
         ref={editorRef}
         contentEditable
         onInput={handleInput}
-        className="w-full px-5 py-4 min-h-[250px] outline-none bg-white prose prose-slate max-w-none"
+        className="w-full px-5 py-4 min-h-[250px] outline-none bg-white dark:bg-slate-800 prose dark:prose-invert prose-slate max-w-none"
       />
     </div>
   );
@@ -68,7 +68,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSave, onCancel, initialData }) =>
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+    <div className="max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-600 overflow-hidden">
       <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
         <div>
           <h2 className="text-2xl font-bold text-slate-900">{initialData ? 'Редактировать задание' : 'Новое задание'}</h2>

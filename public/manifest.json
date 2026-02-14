@@ -1,0 +1,23 @@
+{
+  "name": "Эффективный преподаватель",
+  "short_name": "Эффективный преподаватель",
+  "description": "Платформа для преподавателей",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#10408A",
+  "icons": [
+    {
+      "src": "https://www.tajmedun.tj/bitrix/templates/tajmedun/images/logo_new2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://www.tajmedun.tj/bitrix/templates/tajmedun/images/logo_new2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

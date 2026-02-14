@@ -22,6 +22,9 @@ const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [currentView, setCurrentView] = useState<View>('schedule');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    try { return localStorage.getItem('edugen_theme') === 'dark'; } catch { return false; }
+  });
   
   const [users, setUsers] = useState<User[]>([]);
   const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -70,12 +73,16 @@ const App: React.FC = () => {
   useEffect(() => {
     const session = localStorage.getItem('edugen_session');
     if (session) {
-      // Fix: Cast JSON.parse result to User type to avoid 'unknown' or 'any' issues
       setCurrentUser(JSON.parse(session) as User);
       setIsLanding(false);
     }
     loadData();
   }, []);
+
+  useEffect(() => {
+    try { localStorage.setItem('edugen_theme', darkMode ? 'dark' : 'light'); } catch { /* noop */ }
+    document.documentElement.classList.toggle('dark', darkMode);
+  }, [darkMode]);
 
   // После обновления страницы — один раз вернуться в занятие с активным тестом
   const hasRestoredTestViewRef = useRef(false);
@@ -356,12 +363,12 @@ const App: React.FC = () => {
     return (
       <button 
         onClick={() => navigateTo(view)} 
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${isActive ? 'bg-[#10408A] text-white shadow-lg shadow-[#10408A]/20' : 'text-slate-500 hover:bg-slate-100'}`}
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${isActive ? 'bg-[#10408A] text-white shadow-lg shadow-[#10408A]/20' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700'}`}
       >
         {icon}
         <span className="truncate">{label}</span>
         {badgeCount && badgeCount > 0 && (
-          <span className="ml-auto min-w-[28px] h-6 px-1 rounded-full text-[10px] font-black flex items-center justify-center border-2 border-rose-500 text-rose-600 bg-white">
+          <span className="ml-auto min-w-[28px] h-6 px-1 rounded-full text-[10px] font-black flex items-center justify-center border-2 border-rose-500 text-rose-600 bg-white dark:bg-slate-800 dark:text-rose-400">
             {badgeCount}
           </span>
         )}
@@ -377,39 +384,44 @@ const App: React.FC = () => {
     : 0) as number;
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 flex flex-col md:flex-row">
       {/* Модалка: предупреждение во время теста (навигация или выход из профиля) */}
       {blockReason && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm" onClick={() => setBlockReason(null)}>
-          <div className="bg-white rounded-[32px] shadow-2xl border border-slate-200 p-8 max-w-md w-full text-center space-y-6" onClick={e => e.stopPropagation()}>
-            <div className="w-16 h-16 mx-auto rounded-full bg-amber-100 flex items-center justify-center">
-              <svg className="w-8 h-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl sm:rounded-[32px] shadow-2xl border border-slate-200 dark:border-slate-600 p-5 sm:p-8 max-w-md w-full text-center space-y-5 sm:space-y-6" onClick={e => e.stopPropagation()}>
+            <div className="w-16 h-16 mx-auto rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+              <svg className="w-8 h-8 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
             </div>
             {blockReason === 'nav' ? (
               <>
-                <p className="text-lg font-black text-slate-900">Переключение невозможно во время тестирования</p>
-                <p className="text-slate-500 text-sm">Завершите тест или дождитесь окончания времени. Переход в другие разделы заблокирован.</p>
+                <p className="text-lg font-black text-slate-900 dark:text-white">Переключение невозможно во время тестирования</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm">Завершите тест или дождитесь окончания времени. Переход в другие разделы заблокирован.</p>
               </>
             ) : (
               <>
-                <p className="text-lg font-black text-slate-900">Выйти из профиля невозможно во время тестирования</p>
-                <p className="text-slate-500 text-sm">Завершите тест или дождитесь окончания времени, после этого вы сможете выйти из системы.</p>
+                <p className="text-lg font-black text-slate-900 dark:text-white">Выйти из профиля невозможно во время тестирования</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm">Завершите тест или дождитесь окончания времени, после этого вы сможете выйти из системы.</p>
               </>
             )}
-            <button onClick={() => setBlockReason(null)} className="w-full py-4 px-6 bg-[#10408A] text-white rounded-2xl font-black uppercase tracking-widest shadow-lg hover:bg-[#0d336e] transition-all">Понятно</button>
+            <button onClick={() => setBlockReason(null)} className="w-full py-4 px-6 bg-[#10408A] text-white rounded-2xl font-black uppercase tracking-widest shadow-lg hover:bg-[#0d336e] transition-all min-h-[48px]">Понятно</button>
           </div>
         </div>
       )}
 
       {/* Mobile Top Bar */}
-      <div className="md:hidden bg-white border-b border-slate-200 h-16 px-4 flex items-center justify-between sticky top-0 z-50">
+      <div className="md:hidden bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 h-16 px-4 flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-2" onClick={() => navigateTo('dashboard')}>
           <img src={logoUrl} alt="Logo" className="h-8 w-8 object-contain" />
-          <span className="font-black text-xs uppercase truncate max-w-[150px]">Эффективный преподаватель</span>
+          <span className="font-black text-xs uppercase truncate max-w-[150px] text-slate-900 dark:text-white">Эффективный преподаватель</span>
         </div>
-        <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-slate-500">
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
-        </button>
+        <div className="flex items-center gap-1">
+          <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700" aria-label={darkMode ? 'Светлая тема' : 'Тёмная тема'}>
+            {darkMode ? <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg> : <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>}
+          </button>
+          <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-slate-500 dark:text-slate-400">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
+          </button>
+        </div>
       </div>
 
       {/* Sidebar Overlay (Mobile) */}
@@ -421,12 +433,12 @@ const App: React.FC = () => {
       )}
 
       {/* Sidebar Navigation */}
-      <aside className={`fixed inset-y-0 left-0 w-72 bg-white border-r border-slate-200 z-[70] transform transition-transform duration-300 md:relative md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} flex flex-col`}>
+      <aside className={`fixed inset-y-0 left-0 w-[min(288px,90vw)] md:w-72 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 z-[70] transform transition-transform duration-300 md:relative md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} flex flex-col`}>
         <div className="p-6 flex items-center gap-3 mb-4 shrink-0">
           <img src={logoUrl} alt="Logo" className="h-10 w-10 object-contain" />
           <div className="min-w-0">
-            <h1 className="font-black text-slate-900 tracking-tight uppercase text-sm leading-tight">Эффективный преподаватель</h1>
-            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Личный кабинет</p>
+            <h1 className="font-black text-slate-900 dark:text-white tracking-tight uppercase text-sm leading-tight">Эффективный преподаватель</h1>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mt-0.5">Личный кабинет</p>
           </div>
         </div>
 
@@ -439,7 +451,7 @@ const App: React.FC = () => {
           {isAdmin && (
             <>
               <div className="pt-4 pb-2 px-4">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Администрирование</p>
+                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Администрирование</p>
               </div>
               <NavItem view="analytics" label="Аналитика" icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>} />
               <NavItem view="validation" label="Валидация тестов" icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M12 2a10 10 0 100 20 10 10 0 000-20z" /></svg>} />
@@ -449,19 +461,23 @@ const App: React.FC = () => {
           )}
         </nav>
 
-        <div className="p-4 border-t border-slate-100 shrink-0">
-          <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl mb-3">
+        <div className="p-4 border-t border-slate-100 dark:border-slate-700 shrink-0">
+          <button onClick={() => setDarkMode(!darkMode)} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all mb-2">
+            {darkMode ? <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg> : <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>}
+            <span>{darkMode ? 'Светлая тема' : 'Тёмная тема'}</span>
+          </button>
+          <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-2xl mb-3">
             <div className="w-10 h-10 bg-[#10408A] text-white rounded-xl flex items-center justify-center font-black">
               {currentUser.name.charAt(0)}
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-bold text-slate-900 truncate">{currentUser.name}</p>
-              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{isAdmin ? 'Администратор' : 'Преподаватель'}</p>
+              <p className="text-xs font-bold text-slate-900 dark:text-white truncate">{currentUser.name}</p>
+              <p className="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest">{isAdmin ? 'Администратор' : 'Преподаватель'}</p>
             </div>
           </div>
           <button 
             onClick={handleLogout} 
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-50 transition-all"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 dark:text-rose-400 transition-all"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
             Выйти из системы
@@ -469,8 +485,8 @@ const App: React.FC = () => {
         </div>
       </aside>
 
-      <main className="flex-1 min-w-0 relative">
-        <div className="max-w-7xl mx-auto px-4 py-8">
+      <main className="flex-1 min-w-0 relative bg-slate-50 dark:bg-slate-900">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
           {isLoading ? (
             <div className="flex items-center justify-center py-20">
               <div className="w-10 h-10 border-4 border-[#10408A]/20 border-t-[#10408A] rounded-full animate-spin"></div>

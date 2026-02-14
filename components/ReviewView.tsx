@@ -162,31 +162,31 @@ const ReviewView: React.FC<ReviewViewProps & { users: User[] }> = ({ tasks, subm
     <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight">Проверка заданий</h2>
-          <p className="text-slate-500">Для итоговой оценки требуется минимум 5 отзывов от разных администраторов</p>
+          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Проверка заданий</h2>
+          <p className="text-slate-500 dark:text-slate-400">Для итоговой оценки требуется минимум 5 отзывов от разных администраторов</p>
         </div>
         
-        <div className="flex items-center gap-3 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm w-full md:w-auto overflow-x-auto">
+        <div className="flex items-center gap-3 bg-white dark:bg-slate-800 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-600 shadow-sm w-full md:w-auto overflow-x-auto">
           <select 
             value={streamFilter} 
             onChange={(e) => setStreamFilter(e.target.value)}
-            className="px-4 py-2 bg-slate-50 border-none rounded-xl text-xs font-bold text-slate-600 outline-none focus:ring-2 focus:ring-[#10408A] min-w-[120px]"
+            className="px-4 py-2 bg-slate-50 dark:bg-slate-700 dark:text-white border-none rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 outline-none focus:ring-2 focus:ring-[#10408A] min-w-[120px]"
           >
             <option value="all">Все потоки</option>
             {uniqueStreams.map(s => (
               <option key={s} value={s}>Поток: {s}</option>
             ))}
           </select>
-          <div className="w-[1px] h-6 bg-slate-200 hidden md:block"></div>
+          <div className="w-[1px] h-6 bg-slate-200 dark:bg-slate-600 hidden md:block"></div>
           <button 
             onClick={() => setViewTab('pending')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${viewTab === 'pending' ? 'bg-[#10408A] text-white shadow-lg shadow-[#10408A]/10' : 'text-slate-400 hover:bg-slate-50'}`}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${viewTab === 'pending' ? 'bg-[#10408A] text-white shadow-lg shadow-[#10408A]/10' : 'text-slate-400 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
           >
             К проверке
           </button>
           <button 
             onClick={() => setViewTab('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${viewTab === 'all' ? 'bg-[#10408A] text-white shadow-lg shadow-[#10408A]/10' : 'text-slate-400 hover:bg-slate-50'}`}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${viewTab === 'all' ? 'bg-[#10408A] text-white shadow-lg shadow-[#10408A]/10' : 'text-slate-400 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
           >
             Все работы
           </button>
@@ -195,7 +195,7 @@ const ReviewView: React.FC<ReviewViewProps & { users: User[] }> = ({ tasks, subm
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1 space-y-4">
-          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest px-2 flex items-center justify-between">
+          <h3 className="text-sm font-bold text-slate-400 dark:text-slate-300 uppercase tracking-widest px-2 flex items-center justify-between">
             <span>{viewTab === 'pending' ? 'Ваша очередь' : 'Список работ'} ({filteredSubmissions.length})</span>
           </h3>
           <div className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
@@ -209,7 +209,7 @@ const ReviewView: React.FC<ReviewViewProps & { users: User[] }> = ({ tasks, subm
                 <button
                   key={subKey}
                   onClick={() => setSelectedSubKey(subKey)}
-                  className={`w-full text-left p-5 rounded-2xl border transition-all relative ${selectedSubKey === subKey ? 'bg-[#10408A] text-white border-[#10408A] shadow-xl scale-[1.02]' : 'bg-white text-slate-900 border-slate-200 hover:border-[#10408A]/30'}`}
+                  className={`w-full text-left p-5 rounded-2xl border transition-all relative ${selectedSubKey === subKey ? 'bg-[#10408A] text-white border-[#10408A] shadow-xl scale-[1.02]' : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white border-slate-200 dark:border-slate-600 hover:border-[#10408A]/30'}`}
                 >
                   {myReview && (
                     <div className="absolute top-2 right-2 flex gap-1">
@@ -219,10 +219,10 @@ const ReviewView: React.FC<ReviewViewProps & { users: User[] }> = ({ tasks, subm
                   <p className="font-bold truncate pr-16">{task?.title || 'Задание удалено'}</p>
                   <div className="flex items-center justify-between mt-2">
                     <div className="min-w-0">
-                      <p className={`text-[10px] font-bold truncate ${selectedSubKey === subKey ? 'text-[#FFFFFF]/70' : 'text-slate-900'}`}>{sub.userName}</p>
-                      <p className={`text-[9px] font-medium ${selectedSubKey === subKey ? 'text-[#FFFFFF]/50' : 'text-slate-400'}`}>Кафедра: {sub.userDept}</p>
+                      <p className={`text-[10px] font-bold truncate ${selectedSubKey === subKey ? 'text-[#FFFFFF]/70' : 'text-slate-900 dark:text-white'}`}>{sub.userName}</p>
+                      <p className={`text-[9px] font-medium ${selectedSubKey === subKey ? 'text-[#FFFFFF]/50' : 'text-slate-400 dark:text-slate-300'}`}>Кафедра: {sub.userDept}</p>
                     </div>
-                    <div className={`px-2 py-0.5 rounded text-[10px] font-black shrink-0 ml-2 ${selectedSubKey === subKey ? 'bg-white/20' : 'bg-slate-100 text-slate-600'}`}>
+                    <div className={`px-2 py-0.5 rounded text-[10px] font-black shrink-0 ml-2 ${selectedSubKey === subKey ? 'bg-white/20' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
                        {reviewCount} / 5
                     </div>
                   </div>
@@ -230,92 +230,92 @@ const ReviewView: React.FC<ReviewViewProps & { users: User[] }> = ({ tasks, subm
               );
             })}
             {filteredSubmissions.length === 0 && (
-              <div className="bg-white border-2 border-dashed border-slate-200 rounded-[32px] p-12 text-center text-slate-400 font-bold">Работ не найдено</div>
+              <div className="bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-600 rounded-[32px] p-12 text-center text-slate-400 dark:text-slate-300 font-bold">Работ не найдено</div>
             )}
           </div>
         </div>
 
         <div className="lg:col-span-2">
           {selectedSubKey && selectedSubmission && selectedTask ? (
-            <div className="bg-white rounded-[40px] border border-slate-200 shadow-sm overflow-hidden animate-in slide-in-from-right-4 duration-300">
+            <div className="bg-white dark:bg-slate-800 rounded-[40px] border border-slate-200 dark:border-slate-600 shadow-sm overflow-hidden animate-in slide-in-from-right-4 duration-300">
               <div className="p-8 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
                 <div>
-                  <h3 className="text-xl font-black text-slate-900 leading-tight">{selectedTask.title}</h3>
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight">{selectedTask.title}</h3>
                   <div className="flex gap-2 mt-1">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Всего отзывов: {selectedSubmission.reviews?.length || 0}</span>
+                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-wider">Всего отзывов: {selectedSubmission.reviews?.length || 0}</span>
                   </div>
                 </div>
-                <button onClick={() => setSelectedSubKey(null)} className="text-slate-400 hover:text-slate-600">
+                <button onClick={() => setSelectedSubKey(null)} className="text-slate-400 dark:text-slate-300 hover:text-slate-600 dark:hover:text-white">
                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
               </div>
               
               <div className="p-8 space-y-10">
                 <div className="p-6 bg-[#10408A]/5 rounded-3xl border border-[#10408A]/10">
-                   <p className="text-[10px] font-black text-[#10408A] uppercase tracking-widest mb-2">Автор работы</p>
+                   <p className="text-[10px] font-black text-[#10408A] dark:text-[#6ba3f5] uppercase tracking-widest mb-2">Автор работы</p>
                    <div className="flex items-center gap-3">
                      <div className="w-10 h-10 bg-[#10408A] text-white rounded-xl flex items-center justify-center font-bold">
                        {selectedSubmission.userName?.charAt(0)}
                      </div>
                      <div>
-                       <p className="font-bold text-slate-900">{selectedSubmission.userName}</p>
-                       <p className="text-xs text-slate-500 font-bold uppercase">{selectedSubmission.userDept} • Поток {selectedSubmission.userStream}</p>
+                       <p className="font-bold text-slate-900 dark:text-white">{selectedSubmission.userName}</p>
+                       <p className="text-xs text-slate-500 dark:text-slate-300 font-bold uppercase">{selectedSubmission.userDept} • Поток {selectedSubmission.userStream}</p>
                      </div>
                    </div>
                 </div>
 
                 {selectedSubmission.response && (
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Ответ преподавателя</label>
-                    <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-slate-800 leading-relaxed prose max-w-none shadow-sm" dangerouslySetInnerHTML={{ __html: selectedSubmission.response }} />
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest ml-1">Ответ преподавателя</label>
+                    <div className="p-6 bg-slate-50 dark:bg-slate-700 dark:text-slate-200 rounded-3xl border border-slate-100 dark:border-slate-600 text-slate-800 leading-relaxed prose dark:prose-invert max-w-none shadow-sm" dangerouslySetInnerHTML={{ __html: selectedSubmission.response }} />
                   </div>
                 )}
 
                 {selectedSubmission.files && selectedSubmission.files.length > 0 && (
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 block">Прикрепленные файлы ({selectedSubmission.files.length})</label>
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest ml-1 block">Прикрепленные файлы ({selectedSubmission.files.length})</label>
                     <div className="grid gap-4">
                       {selectedSubmission.files.map((file, idx) => (
-                        <div key={idx} className="bg-white border border-slate-200 rounded-[24px] overflow-hidden shadow-sm transition-all hover:border-[#10408A]/30">
-                          <div className="flex items-center justify-between p-4 bg-slate-50/50 min-w-0 gap-4">
+                        <div key={idx} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-[24px] overflow-hidden shadow-sm transition-all hover:border-[#10408A]/30">
+                          <div className="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-slate-700/50 min-w-0 gap-4">
                             <div className="flex items-center gap-3 min-w-0">
                               <div className="p-2.5 bg-[#10408A] rounded-xl text-white shadow-lg shadow-[#10408A]/10"><svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg></div>
                               <div className="min-w-0">
-                                <span className="text-sm font-black block truncate text-slate-900">{file.name}</span>
-                                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">{(file.size / 1024).toFixed(1)} KB</span>
+                                <span className="text-sm font-black block truncate text-slate-900 dark:text-white">{file.name}</span>
+                                <span className="text-[10px] text-slate-400 dark:text-slate-300 font-bold uppercase tracking-tighter">{(file.size / 1024).toFixed(1)} KB</span>
                               </div>
                             </div>
                             <div className="flex items-center gap-2 shrink-0">
-                              <button onClick={() => setActiveFileIndex(activeFileIndex === idx ? null : idx)} className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${activeFileIndex === idx ? 'bg-[#10408A] text-white border-[#10408A]' : 'bg-white text-[#10408A] border-slate-100 hover:border-[#10408A]'}`}>{activeFileIndex === idx ? 'Закрыть' : 'Просмотр'}</button>
-                              <a href={fileUrls[idx] || file.data} download={file.name} className="px-4 py-2 rounded-xl text-xs font-black transition-all border bg-white text-slate-500 border-slate-100 hover:border-[#10408A] hover:text-[#10408A]">
+                              <button onClick={() => setActiveFileIndex(activeFileIndex === idx ? null : idx)} className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${activeFileIndex === idx ? 'bg-[#10408A] text-white border-[#10408A]' : 'bg-white dark:bg-slate-700 text-[#10408A] dark:text-[#6ba3f5] border-slate-100 dark:border-slate-600 hover:border-[#10408A]'}`}>{activeFileIndex === idx ? 'Закрыть' : 'Просмотр'}</button>
+                              <a href={fileUrls[idx] || file.data} download={file.name} className="px-4 py-2 rounded-xl text-xs font-black transition-all border bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 border-slate-100 dark:border-slate-600 hover:border-[#10408A] hover:text-[#10408A] dark:hover:text-[#6ba3f5]">
                                 Скачать
                               </a>
                             </div>
                           </div>
-                          {activeFileIndex === idx && <div className="p-4 border-t border-slate-100 bg-white animate-in slide-in-from-top-4 duration-300">{renderFileContent(file, idx)}</div>}
+                          {activeFileIndex === idx && <div className="p-4 border-t border-slate-100 dark:border-slate-600 bg-white dark:bg-slate-800 animate-in slide-in-from-top-4 duration-300">{renderFileContent(file, idx)}</div>}
                         </div>
                       ))}
                     </div>
                   </div>
                 )}
 
-                <div className="pt-10 border-t border-slate-100 space-y-8">
+                <div className="pt-10 border-t border-slate-100 dark:border-slate-600 space-y-8">
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block ml-1">Ваша оценка (1-5)</label>
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest block ml-1">Ваша оценка (1-5)</label>
                     <div className="flex gap-4">
                       {[1, 2, 3, 4, 5].map(num => (
-                        <button key={num} onClick={() => setGrade(num)} className={`w-14 h-14 rounded-2xl text-xl font-black transition-all ${grade === num ? 'bg-[#10408A] text-white shadow-xl shadow-[#10408A]/10 scale-110 ring-4 ring-[#10408A]/5' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}>{num}</button>
+                        <button key={num} onClick={() => setGrade(num)} className={`w-14 h-14 rounded-2xl text-xl font-black transition-all ${grade === num ? 'bg-[#10408A] text-white shadow-xl shadow-[#10408A]/10 scale-110 ring-4 ring-[#10408A]/5' : 'bg-slate-50 dark:bg-slate-700 text-slate-400 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-600'}`}>{num}</button>
                       ))}
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 block">Ваш комментарий (анонимно)</label>
-                    <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Напишите конструктивный отзыв..." rows={4} className="w-full px-6 py-5 rounded-[24px] border border-slate-200 focus:ring-4 focus:ring-[#10408A]/5 focus:border-[#10408A] outline-none transition-all placeholder:text-slate-300 resize-none font-medium text-slate-700 bg-slate-50/30" />
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest ml-1 block">Ваш комментарий (анонимно)</label>
+                    <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Напишите конструктивный отзыв..." rows={4} className="w-full px-6 py-5 rounded-[24px] border border-slate-200 dark:border-slate-600 focus:ring-4 focus:ring-[#10408A]/5 focus:border-[#10408A] outline-none transition-all placeholder:text-slate-300 dark:placeholder:text-slate-500 resize-none font-medium text-slate-700 dark:text-slate-200 bg-slate-50/30 dark:bg-slate-700 dark:placeholder:text-slate-400" />
                   </div>
 
                   <div className="flex justify-end gap-3 pt-4">
-                    <button onClick={() => setSelectedSubKey(null)} className="px-8 py-3.5 text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">Отмена</button>
+                    <button onClick={() => setSelectedSubKey(null)} className="px-8 py-3.5 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors">Отмена</button>
                     <button onClick={handleGrade} className="bg-[#10408A] text-white px-12 py-3.5 rounded-[20px] font-black hover:bg-[#0d336e] transition-all shadow-2xl shadow-[#10408A]/20 active:scale-95">
                       {selectedSubmission.reviews?.some(r => r.adminId === sessionUser.id) ? 'Обновить мою оценку' : 'Сохранить мой отзыв'}
                     </button>

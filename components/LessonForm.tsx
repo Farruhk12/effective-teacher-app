@@ -38,7 +38,7 @@ const RichTextEditor: React.FC<{
         ref={editorRef}
         contentEditable
         onInput={handleInput}
-        className="w-full px-4 py-3 min-h-[200px] outline-none bg-white prose prose-slate max-w-none"
+        className="w-full px-4 py-3 min-h-[200px] outline-none bg-white dark:bg-slate-800 prose dark:prose-invert prose-slate max-w-none"
         data-placeholder={placeholder}
       />
     </div>
@@ -186,7 +186,7 @@ const LessonForm: React.FC<LessonFormProps> = ({ onSave, onCancel, initialData, 
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="max-w-4xl mx-auto bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-600 overflow-hidden mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
         <div>
           <h2 className="text-2xl font-black text-[#0E1C1C]">{initialData ? 'Редактирование занятия' : 'Создание нового занятия'}</h2>
@@ -286,7 +286,7 @@ const LessonForm: React.FC<LessonFormProps> = ({ onSave, onCancel, initialData, 
 
           <div className="grid gap-3">
             {files.map((f, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
+              <div key={index} className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-600 rounded-2xl shadow-sm">
                 <div className="flex items-center gap-3 min-w-0 flex-1">
                   <div className={`p-2 rounded-lg text-white shrink-0 ${f.isLink ? 'bg-amber-500' : 'bg-[#10408A]'}`}>
                     {f.isLink ? (

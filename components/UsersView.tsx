@@ -70,13 +70,13 @@ const UsersView: React.FC<UsersViewProps> = ({ users, onUpdateUsers, lessons, ta
     <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-500 pb-20 px-1 sm:px-0">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-2 sm:px-0">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Пользователи</h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Пользователи</h2>
         </div>
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <select 
             value={streamFilter} 
             onChange={(e) => setStreamFilter(e.target.value)}
-            className="flex-1 sm:flex-none px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 outline-none focus:ring-2 focus:ring-[#10408A]"
+            className="flex-1 sm:flex-none px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 outline-none focus:ring-2 focus:ring-[#10408A]"
           >
             <option value="all">Все потоки</option>
             {uniqueStreams.map(s => <option key={s} value={s}>{s}</option>)}
@@ -92,13 +92,13 @@ const UsersView: React.FC<UsersViewProps> = ({ users, onUpdateUsers, lessons, ta
 
       <div className="grid gap-3 sm:gap-4">
         {filteredUsers.map(user => (
-          <div key={user.id} className="bg-white p-4 sm:p-6 rounded-[20px] sm:rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between group hover:border-[#10408A]/30 transition-all">
+          <div key={user.id} className="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-[20px] sm:rounded-3xl border border-slate-200 dark:border-slate-600 shadow-sm flex items-center justify-between group hover:border-[#10408A]/30 transition-all">
             <div className="flex items-center gap-3 sm:gap-4 min-w-0">
               <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-2xl flex items-center justify-center font-black text-lg sm:text-xl shrink-0 ${user.role === 'admin' ? 'bg-amber-100 text-amber-600' : 'bg-[#10408A]/10 text-[#10408A]'}`}>
                 {getInitial(user.name)}
               </div>
               <div className="min-w-0">
-                <h3 className="font-black text-slate-900 text-xs sm:text-base flex items-center gap-2 truncate">
+                <h3 className="font-black text-slate-900 dark:text-white text-xs sm:text-base flex items-center gap-2 truncate">
                   {user.name}
                   <span className={`px-1.5 py-0.5 rounded text-[7px] sm:text-[9px] font-bold uppercase ${user.role === 'admin' ? 'bg-amber-50 text-amber-700' : 'bg-[#10408A]/10 text-[#10408A]'}`}>
                     {user.role === 'admin' ? 'Админ' : 'Преп'}
@@ -121,7 +121,7 @@ const UsersView: React.FC<UsersViewProps> = ({ users, onUpdateUsers, lessons, ta
 
       {inspectingUser && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white rounded-[32px] sm:rounded-[40px] w-full max-w-3xl shadow-2xl overflow-hidden max-h-[95vh] flex flex-col">
+          <div className="bg-white dark:bg-slate-800 rounded-[32px] sm:rounded-[40px] w-full max-w-3xl shadow-2xl overflow-hidden max-h-[95vh] flex flex-col">
             <div className="p-6 sm:p-8 border-b border-slate-50 flex justify-between items-center">
               <div>
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900">Детали тестов</h3>
@@ -142,7 +142,7 @@ const UsersView: React.FC<UsersViewProps> = ({ users, onUpdateUsers, lessons, ta
                   const status = res ? (res.passed ? 'Сдан' : 'Не сдан') : 'Не проходил';
                   const scoreText = res ? `${res.score}/${res.total} • ${res.percentage}%` : '—';
                   return (
-                    <div key={lesson.id} className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div key={lesson.id} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="min-w-0">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Занятие</p>
                         <p className="text-sm sm:text-base font-black text-slate-900 mt-1 break-words">{lesson.title}</p>
@@ -176,7 +176,7 @@ const UsersView: React.FC<UsersViewProps> = ({ users, onUpdateUsers, lessons, ta
 
       {showAdd && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white rounded-[32px] sm:rounded-[40px] w-full max-w-md shadow-2xl overflow-hidden max-h-[95vh] flex flex-col">
+          <div className="bg-white dark:bg-slate-800 rounded-[32px] sm:rounded-[40px] w-full max-w-md shadow-2xl overflow-hidden max-h-[95vh] flex flex-col">
             <form onSubmit={handleAddUser} className="flex flex-col h-full">
               <div className="p-6 sm:p-8 border-b border-slate-50 flex justify-between items-center">
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900">Новый пользователь</h3>

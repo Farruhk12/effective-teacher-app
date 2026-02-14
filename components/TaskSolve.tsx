@@ -40,7 +40,7 @@ const RichTextEditor: React.FC<{
         ref={editorRef}
         contentEditable={!disabled}
         onInput={handleInput}
-        className={`w-full px-5 py-4 min-h-[250px] outline-none bg-white prose prose-slate max-w-none ${disabled ? 'bg-slate-50/30' : ''}`}
+        className={`w-full px-5 py-4 min-h-[250px] outline-none bg-white dark:bg-slate-800 prose dark:prose-invert prose-slate max-w-none ${disabled ? 'bg-slate-50/30' : ''}`}
       />
     </div>
   );
@@ -168,7 +168,7 @@ const TaskSolve: React.FC<TaskSolveProps> = ({ task, existingResult, onCancel, o
       <div className="flex items-center gap-4">
         <button 
           onClick={onCancel}
-          className="p-2 bg-white rounded-lg border border-slate-200 text-slate-500 hover:text-[#10408A] transition-all"
+          className="p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:text-[#10408A] transition-all"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -201,7 +201,7 @@ const TaskSolve: React.FC<TaskSolveProps> = ({ task, existingResult, onCancel, o
       {/* Отправьте результат вашей работы — снизу */}
       <div className="space-y-4">
         <h3 className="text-lg font-black text-slate-900">Отправьте результат вашей работы</h3>
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-8 relative overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-600 shadow-sm space-y-8 relative overflow-hidden">
             {(isSubmitted || isAdmin) && !isAdmin && (
                <div className="absolute top-6 right-8 z-20">
                  {hasReviews ? (
@@ -268,14 +268,14 @@ const TaskSolve: React.FC<TaskSolveProps> = ({ task, existingResult, onCancel, o
                       <div className="flex items-center gap-2 shrink-0">
                         <button 
                           onClick={() => setActivePreviewIndex(activePreviewIndex === index ? null : index)} 
-                          className={`px-3 py-2 rounded-xl text-[10px] font-black border transition-all ${activePreviewIndex === index ? 'bg-[#0E1C1C] text-white border-[#0E1C1C]' : 'bg-white text-[#10408A] border-slate-100 hover:border-[#10408A]'}`}
+                          className={`px-3 py-2 rounded-xl text-[10px] font-black border transition-all ${activePreviewIndex === index ? 'bg-[#0E1C1C] text-white border-[#0E1C1C]' : 'bg-white dark:bg-slate-700 text-[#10408A] dark:text-[#6ba3f5] border-slate-100 dark:border-slate-600 hover:border-[#10408A]'}`}
                         >
                           {activePreviewIndex === index ? 'Закрыть' : 'Просмотр'}
                         </button>
                         <a
                           href={fileUrls[index] || f.data}
                           download={f.name}
-                          className="px-3 py-2 rounded-xl text-[10px] font-black border border-slate-100 bg-white text-slate-500 hover:text-[#10408A] hover:border-[#10408A] transition-all"
+                          className="px-3 py-2 rounded-xl text-[10px] font-black border border-slate-100 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-[#10408A] hover:border-[#10408A] transition-all"
                         >
                           Скачать
                         </a>
@@ -287,7 +287,7 @@ const TaskSolve: React.FC<TaskSolveProps> = ({ task, existingResult, onCancel, o
                       </div>
                     </div>
                     {activePreviewIndex === index && (
-                      <div className="p-4 bg-white border-t border-slate-100 animate-in slide-in-from-top-2">
+                      <div className="p-4 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-600 animate-in slide-in-from-top-2">
                         {renderFilePreview(f, index)}
                       </div>
                     )}

@@ -128,40 +128,40 @@ const AnalyticsView: React.FC<AnalyticsViewProps> = ({ users, lessons, tasks, le
   return (
     <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-500 pb-20 px-1 sm:px-0">
       <div>
-        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Аналитика</h2>
-        <p className="text-xs sm:text-sm text-slate-500">Обзор успеваемости в разрезе подразделений</p>
+        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Аналитика</h2>
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Обзор успеваемости в разрезе подразделений</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-        <div className="bg-white p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 shadow-sm">
-          <p className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Слушатели</p>
+        <div className="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 dark:border-slate-600 shadow-sm">
+          <p className="text-[8px] sm:text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest mb-1">Слушатели</p>
           <p className="text-xl sm:text-3xl font-black text-[#10408A]">{listeners.length}</p>
         </div>
-        <div className="bg-white p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 shadow-sm">
-          <p className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Ср. балл</p>
+        <div className="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 dark:border-slate-600 shadow-sm">
+          <p className="text-[8px] sm:text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest mb-1">Ср. балл</p>
           <p className="text-xl sm:text-3xl font-black text-emerald-600">{globalStats.avgScore}%</p>
         </div>
-        <div className="bg-white p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 shadow-sm">
-          <p className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Завершение</p>
+        <div className="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 dark:border-slate-600 shadow-sm">
+          <p className="text-[8px] sm:text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest mb-1">Завершение</p>
           <p className="text-xl sm:text-3xl font-black text-[#10408A]">{globalStats.avgCompletion}%</p>
         </div>
-        <div className="bg-white p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 shadow-sm">
-          <p className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Кафедры</p>
-          <p className="text-xl sm:text-3xl font-black text-slate-900">{departments.length}</p>
+        <div className="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 dark:border-slate-600 shadow-sm">
+          <p className="text-[8px] sm:text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest mb-1">Кафедры</p>
+          <p className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white">{departments.length}</p>
         </div>
       </div>
 
-      <div className="bg-white p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 shadow-sm flex flex-col md:flex-row gap-3 sm:gap-4">
+      <div className="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] border border-slate-200 dark:border-slate-600 shadow-sm flex flex-col md:flex-row gap-3 sm:gap-4">
         <div className="relative w-full md:flex-1">
-          <input type="text" placeholder="Поиск..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2.5 bg-slate-50 rounded-xl sm:rounded-2xl border border-transparent focus:bg-white focus:ring-2 focus:ring-[#10408A] outline-none transition-all font-medium text-sm" />
-          <svg className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          <input type="text" placeholder="Поиск..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 dark:text-white dark:placeholder:text-slate-400 rounded-xl sm:rounded-2xl border border-transparent focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-[#10408A] outline-none transition-all font-medium text-sm" />
+          <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
         </div>
         <div className="flex gap-2 w-full md:w-auto">
-          <select value={deptFilter} onChange={(e) => setDeptFilter(e.target.value)} className="flex-1 md:flex-none px-4 py-2.5 bg-slate-50 rounded-xl text-[10px] sm:text-sm font-bold text-slate-600 outline-none focus:bg-white border-none">
+          <select value={deptFilter} onChange={(e) => setDeptFilter(e.target.value)} className="flex-1 md:flex-none px-4 py-2.5 bg-slate-50 dark:bg-slate-700 dark:text-white rounded-xl text-[10px] sm:text-sm font-bold text-slate-600 dark:text-slate-300 outline-none focus:bg-white dark:focus:bg-slate-600 border-none">
             <option value="all">Кафедры</option>
             {departments.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
-          <select value={streamFilter} onChange={(e) => setStreamFilter(e.target.value)} className="flex-1 md:flex-none px-4 py-2.5 bg-slate-50 rounded-xl text-[10px] sm:text-sm font-bold text-slate-600 outline-none focus:bg-white border-none">
+          <select value={streamFilter} onChange={(e) => setStreamFilter(e.target.value)} className="flex-1 md:flex-none px-4 py-2.5 bg-slate-50 dark:bg-slate-700 dark:text-white rounded-xl text-[10px] sm:text-sm font-bold text-slate-600 dark:text-slate-300 outline-none focus:bg-white dark:focus:bg-slate-600 border-none">
             <option value="all">Потоки</option>
             {streams.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
@@ -169,33 +169,33 @@ const AnalyticsView: React.FC<AnalyticsViewProps> = ({ users, lessons, tasks, le
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-        <div className="bg-white p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-slate-200 shadow-sm">
-          <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-4 sm:mb-6 flex items-center gap-2">
-            <span className="w-8 h-8 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-sm">★</span>
+        <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-slate-200 dark:border-slate-600 shadow-sm">
+          <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
+            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg flex items-center justify-center text-sm">★</span>
             Топ преподавателей
           </h3>
           <div className="space-y-3 sm:space-y-4">
             {topUsers.map((u, i) => (
-              <div key={u.id} className="flex items-center justify-between p-3 sm:p-4 bg-slate-50/50 rounded-xl sm:rounded-2xl border border-slate-100">
+              <div key={u.id} className="flex items-center justify-between p-3 sm:p-4 bg-slate-50/50 dark:bg-slate-700/50 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-600">
                 <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                  <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg flex items-center justify-center text-[8px] sm:text-[10px] font-black shrink-0 ${i < 3 ? 'bg-amber-100 text-amber-600' : 'bg-slate-200 text-slate-400'}`}>{i + 1}</span>
+                  <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg flex items-center justify-center text-[8px] sm:text-[10px] font-black shrink-0 ${i < 3 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' : 'bg-slate-200 dark:bg-slate-600 text-slate-400 dark:text-slate-300'}`}>{i + 1}</span>
                   <div className="min-w-0">
-                    <p className="font-bold text-slate-900 text-xs sm:text-sm truncate">{u.name}</p>
-                    <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">{u.department}</p>
+                    <p className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm truncate">{u.name}</p>
+                    <p className="text-[8px] sm:text-[10px] text-slate-400 dark:text-slate-300 font-bold uppercase truncate">{u.department}</p>
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm sm:text-lg font-black text-[#10408A]">{u.stats.average}%</p>
-                  <p className="text-[7px] sm:text-[9px] text-emerald-600 font-bold uppercase tracking-tight">Прогресс: {u.stats.completionRate}%</p>
+                  <p className="text-sm sm:text-lg font-black text-[#10408A] dark:text-[#6ba3f5]">{u.stats.average}%</p>
+                  <p className="text-[7px] sm:text-[9px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-tight">Прогресс: {u.stats.completionRate}%</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-slate-200 shadow-sm">
-          <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-4 sm:mb-6 flex items-center gap-2">
-            <span className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center text-sm">🏢</span>
+        <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-slate-200 dark:border-slate-600 shadow-sm">
+          <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
+            <span className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center text-sm">🏢</span>
             Рейтинг кафедр
           </h3>
           <div className="space-y-4 sm:space-y-6">
@@ -203,25 +203,25 @@ const AnalyticsView: React.FC<AnalyticsViewProps> = ({ users, lessons, tasks, le
               <div key={dept.name} className="space-y-1.5">
                 <div className="flex justify-between items-end">
                   <div className="min-w-0 pr-2">
-                    <p className="font-bold text-slate-900 text-xs sm:text-sm truncate">{dept.name}</p>
-                    <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase">{dept.userCount} чел.</p>
+                    <p className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm truncate">{dept.name}</p>
+                    <p className="text-[8px] sm:text-[10px] text-slate-400 dark:text-slate-300 font-bold uppercase">{dept.userCount} чел.</p>
                   </div>
                   <div className="text-right shrink-0">
                     <span className="text-sm sm:text-lg font-black text-[#10408A]">{dept.average}%</span>
                   </div>
                 </div>
-                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-[#10408A]" style={{ width: `${dept.average}%` }}></div>
+<div className="h-1.5 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#10408A]" style={{ width: `${dept.average}%` }}></div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>
 
-      <div className="bg-white p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-slate-200 shadow-sm">
-        <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-4 sm:mb-6 flex items-center gap-2">
-          <span className="w-8 h-8 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-sm">≋</span>
+      <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-slate-200 dark:border-slate-600 shadow-sm">
+        <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
+          <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg flex items-center justify-center text-sm">≋</span>
           Активность по потокам
         </h3>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -231,16 +231,16 @@ const AnalyticsView: React.FC<AnalyticsViewProps> = ({ users, lessons, tasks, le
             const offset = circumference - (stream.average / 100) * circumference;
             
             return (
-              <div key={stream.name} className="p-4 sm:p-8 bg-white border border-slate-100 rounded-[24px] sm:rounded-[32px] text-center space-y-3 sm:space-y-5 shadow-sm">
-                <p className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] truncate">Поток {stream.name}</p>
+              <div key={stream.name} className="p-4 sm:p-8 bg-white dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600 rounded-[24px] sm:rounded-[32px] text-center space-y-3 sm:space-y-5 shadow-sm">
+                <p className="text-[8px] sm:text-[10px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-[0.2em] truncate">Поток {stream.name}</p>
                 <div className="relative w-16 h-16 sm:w-24 sm:h-24 mx-auto">
                   <svg className="w-full h-full transform -rotate-90" viewBox="0 0 80 80">
-                    <circle cx="40" cy="40" r={radius} stroke="currentColor" strokeWidth="6" fill="transparent" className="text-slate-100" />
+                    <circle cx="40" cy="40" r={radius} stroke="currentColor" strokeWidth="6" fill="transparent" className="text-slate-100 dark:text-slate-600" />
                     <circle cx="40" cy="40" r={radius} stroke="currentColor" strokeWidth="6" fill="transparent" strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round" className="text-[#10408A] transition-all duration-1000 ease-out" />
                   </svg>
-                  <div className="absolute inset-0 flex items-center justify-center text-xs sm:text-lg font-black text-slate-900">{stream.average}%</div>
+                  <div className="absolute inset-0 flex items-center justify-center text-xs sm:text-lg font-black text-slate-900 dark:text-white">{stream.average}%</div>
                 </div>
-                <p className="text-[8px] sm:text-xs font-bold text-slate-500">{stream.userCount} чел.</p>
+                <p className="text-[8px] sm:text-xs font-bold text-slate-500 dark:text-slate-300">{stream.userCount} чел.</p>
               </div>
             );
           })}

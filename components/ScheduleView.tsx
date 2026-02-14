@@ -103,7 +103,7 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
   return (
     <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-500 pb-20 px-1 sm:px-0">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-2 sm:px-0">
-        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Расписание занятий</h2>
+        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Расписание занятий</h2>
         {isAdmin && !formVisible && (
           <button
             onClick={startNew}
@@ -116,19 +116,19 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
 
       {/* Форма добавления/редактирования */}
       {isAdmin && formVisible && (
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="p-6 border-b border-slate-100 bg-slate-50/50">
-            <h3 className="text-lg font-bold text-slate-900">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 dark:border-slate-600 overflow-hidden">
+          <div className="p-4 sm:p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/50">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
               {editing ? 'Редактировать запись' : 'Новая запись в расписании'}
             </h3>
           </div>
-          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1">День недели</label>
               <select
                 value={form.dayOfWeek}
                 onChange={e => setForm(f => ({ ...f, dayOfWeek: Number(e.target.value) }))}
-                className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:ring-2 focus:ring-[#10408A] focus:ring-indigo-500 outline-none"
               >
                 {[1, 2, 3, 4, 5, 6, 7].map(d => (
                   <option key={d} value={d}>{DAY_NAMES[d]}</option>
@@ -140,7 +140,7 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
               <select
                 value={form.lessonId}
                 onChange={e => setForm(f => ({ ...f, lessonId: e.target.value }))}
-                className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:ring-2 focus:ring-[#10408A] focus:ring-indigo-500 outline-none"
               >
                 <option value="">— Выберите занятие —</option>
                 {lessons.map(l => (
@@ -156,7 +156,7 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
                 step={0.5}
                 value={form.durationHours}
                 onChange={e => setForm(f => ({ ...f, durationHours: Number(e.target.value) || 1 }))}
-                className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:ring-2 focus:ring-[#10408A] focus:ring-indigo-500 outline-none"
               />
             </div>
             <div>
@@ -165,14 +165,14 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
                 type="time"
                 value={form.startTime}
                 onChange={e => setForm(f => ({ ...f, startTime: e.target.value || '09:00' }))}
-                className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:ring-2 focus:ring-[#10408A] focus:ring-indigo-500 outline-none"
               />
             </div>
             <div className="sm:col-span-2">
               <label className="block text-sm font-bold text-slate-700 mb-2">Кураторы (только администраторы)</label>
               <div className="flex flex-wrap gap-2">
                 {users.filter(u => u.role === 'admin').map(u => (
-                  <label key={u.id} className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100">
+                  <label key={u.id} className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-600">
                     <input
                       type="checkbox"
                       checked={form.curators.includes(u.name)}
@@ -187,7 +187,7 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
             </div>
           </div>
           <div className="p-6 pt-0 flex items-center justify-end gap-3">
-            <button onClick={cancelEdit} className="px-5 py-2.5 text-sm font-semibold text-slate-600 hover:text-slate-900">
+            <button onClick={cancelEdit} className="px-5 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
               Отмена
             </button>
             <button onClick={saveItem} className="bg-indigo-600 text-white px-6 py-2.5 rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all">
@@ -203,12 +203,12 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
           const items = scheduleByDay(day);
           if (items.length === 0 && schedule.length > 0) return null;
           return (
-            <div key={day} className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-              <div className="px-5 py-3 bg-slate-50 border-b border-slate-200 font-bold text-slate-800">
+            <div key={day} className="bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 dark:border-slate-600 overflow-hidden">
+              <div className="px-4 sm:px-5 py-3 bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-600 font-bold text-slate-800 dark:text-slate-200 text-sm sm:text-base">
                 {DAY_NAMES[day]}
               </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left table-fixed" style={{ minWidth: '720px' }}>
+              <div className="overflow-x-auto -mx-1 sm:mx-0">
+                <table className="w-full text-left table-fixed text-sm sm:text-base" style={{ minWidth: '720px' }}>
                   <colgroup>
                     <col />
                     <col style={{ width: '5.5rem' }} />
@@ -217,7 +217,7 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
                     {isAdmin && <col style={{ width: '6rem' }} />}
                   </colgroup>
                   <thead>
-                    <tr className="text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">
+                    <tr className="text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider border-b border-slate-100 dark:border-slate-600">
                       <th className="px-4 py-3 text-left align-bottom">Занятие</th>
                       <th className="px-4 py-3 text-center align-bottom whitespace-nowrap">Начало</th>
                       <th className="px-4 py-3 text-center align-bottom whitespace-nowrap" style={{ minWidth: '8rem' }}>Длительность</th>
@@ -228,7 +228,7 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
                   <tbody>
                     {items.length === 0 ? (
                       <tr>
-                        <td colSpan={isAdmin ? 5 : 4} className="px-4 py-6 text-slate-500 text-sm">
+                        <td colSpan={isAdmin ? 5 : 4} className="px-4 py-6 text-slate-500 dark:text-slate-400 text-sm">
                           Нет занятий в этот день
                         </td>
                       </tr>
@@ -236,8 +236,8 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
                       items.map(item => {
                         const lesson = lessons.find(l => l.id === item.lessonId);
                         return (
-                          <tr key={item.id} className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50">
-                            <td className="px-4 py-3 font-medium text-slate-900 align-top">
+                          <tr key={item.id} className="border-b border-slate-50 dark:border-slate-700 last:border-0 hover:bg-slate-50/50 dark:hover:bg-slate-700/50">
+                            <td className="px-4 py-3 font-medium text-slate-900 dark:text-white align-top">
                               {lesson && onNavigateToLesson && !isAdmin ? (
                                 <button
                                   type="button"
@@ -250,9 +250,9 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
                                 <span>{lesson?.title ?? item.lessonId}</span>
                               )}
                             </td>
-                            <td className="px-4 py-3 text-slate-600 text-center align-top whitespace-nowrap w-[5.5rem]">{formatStartTime(item.startTime)}</td>
-                            <td className="px-4 py-3 text-slate-600 text-center align-top whitespace-nowrap" style={{ minWidth: '8rem' }}>{item.durationHours} ч</td>
-                            <td className="px-4 py-3 text-slate-600 text-sm align-top">
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-300 text-center align-top whitespace-nowrap w-[5.5rem]">{formatStartTime(item.startTime)}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-300 text-center align-top whitespace-nowrap" style={{ minWidth: '8rem' }}>{item.durationHours} ч</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-300 text-sm align-top">
                               {item.curators.length ? item.curators.join(', ') : '—'}
                             </td>
                             {isAdmin && (
@@ -260,14 +260,14 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
                                 <div className="flex gap-2 justify-center">
                                   <button
                                     onClick={() => startEdit(item)}
-                                    className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                                    className="p-1.5 text-slate-500 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-[#6ba3f5] hover:bg-indigo-50 dark:hover:bg-[#10408A]/20 rounded-lg transition-colors"
                                     title="Изменить"
                                   >
                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                   </button>
                                   <button
                                     onClick={() => onDelete(item.id)}
-                                    className="p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                    className="p-1.5 text-slate-500 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors"
                                     title="Удалить"
                                   >
                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
@@ -288,7 +288,7 @@ const ScheduleView: React.FC<ScheduleViewProps> = ({ schedule, lessons, users, i
       </div>
 
       {schedule.length === 0 && !(isAdmin && formVisible) && (
-        <div className="text-center py-12 text-slate-500">
+        <div className="text-center py-12 text-slate-500 dark:text-slate-400">
           Расписание пусто. Нажмите «Добавить в расписание», чтобы создать первую запись.
         </div>
       )}

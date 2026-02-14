@@ -209,7 +209,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
     const { type, name } = file;
     if (file.isLink) {
       return (
-        <div className="p-6 text-center bg-slate-50 border border-slate-200 rounded-2xl">
+        <div className="p-6 text-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 dark:border-slate-600 rounded-2xl">
           <p className="text-sm font-bold text-slate-600 mb-3">Внешняя ссылка</p>
           <a href={file.data} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-[#10408A] text-white rounded-xl text-xs font-bold">
             Открыть в новой вкладке
@@ -228,7 +228,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
       return <div className="h-[60vh] bg-slate-200 rounded-2xl overflow-hidden border border-slate-300"><iframe src={source} className="w-full h-full" title={name} /></div>;
     }
     return (
-      <div className="p-6 text-center bg-slate-50 border border-slate-200 rounded-2xl">
+      <div className="p-6 text-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 dark:border-slate-600 rounded-2xl">
         <p className="text-sm font-bold text-slate-600 mb-3">Предпросмотр недоступен для этого типа файла</p>
         <a href={source} download={file.name} className="inline-flex items-center gap-2 px-4 py-2 bg-[#10408A] text-white rounded-xl text-xs font-bold">Скачать файл</a>
       </div>
@@ -246,7 +246,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
     <div className="max-w-6xl mx-auto space-y-4 sm:space-y-8 pb-20 animate-in fade-in duration-500 px-1 sm:px-0">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
             {isAdmin && !selectedUserId ? 'Успеваемость' : selectedUser?.name || 'Мой прогресс'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-500">
@@ -263,16 +263,16 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
 
       {isAdmin && !selectedUserId ? (
         <div className="space-y-4 sm:space-y-6">
-          <div className="bg-white p-4 sm:p-6 rounded-[24px] sm:rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-4">
+          <div className="bg-white p-4 sm:p-6 rounded-[24px] sm:rounded-3xl border border-slate-200 dark:border-slate-600 shadow-sm flex flex-col md:flex-row items-center gap-4">
             <div className="relative w-full md:flex-1">
-              <input type="text" placeholder="Поиск..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2.5 bg-slate-50 rounded-xl sm:rounded-2xl border border-transparent focus:bg-white focus:ring-2 focus:ring-[#10408A] outline-none transition-all font-medium text-sm" />
+              <input type="text" placeholder="Поиск..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2.5 bg-slate-50 rounded-xl sm:rounded-2xl border border-transparent focus:bg-white dark:focus:bg-slate-700 focus:ring-2 focus:ring-[#10408A] outline-none transition-all font-medium text-sm" />
               <svg className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             </div>
             <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
               <select 
                 value={streamFilter} 
                 onChange={(e) => setStreamFilter(e.target.value)}
-                className="flex-1 md:flex-none px-3 py-2.5 bg-slate-50 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 border border-transparent outline-none focus:bg-white"
+                className="flex-1 md:flex-none px-3 py-2.5 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 border border-transparent outline-none focus:bg-white"
               >
                 <option value="all">Все потоки</option>
                 {uniqueStreams.map(s => (
@@ -282,15 +282,15 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
               <select 
                 value={departmentFilter} 
                 onChange={(e) => setDepartmentFilter(e.target.value)}
-                className="flex-1 md:flex-none px-3 py-2.5 bg-slate-50 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 border border-transparent outline-none focus:bg-white"
+                className="flex-1 md:flex-none px-3 py-2.5 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 border border-transparent outline-none focus:bg-white"
               >
                 <option value="all">Все кафедры</option>
                 {uniqueDepartments.map(d => (
                   <option key={d} value={d}>{d}</option>
                 ))}
               </select>
-              <input type="date" value={filterDateFrom} onChange={(e) => setFilterDateFrom(e.target.value)} className="flex-1 md:flex-none px-3 py-2.5 bg-slate-50 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 border border-transparent outline-none focus:bg-white" />
-              <input type="date" value={filterDateTo} onChange={(e) => setFilterDateTo(e.target.value)} className="flex-1 md:flex-none px-3 py-2.5 bg-slate-50 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 border border-transparent outline-none focus:bg-white" />
+              <input type="date" value={filterDateFrom} onChange={(e) => setFilterDateFrom(e.target.value)} className="flex-1 md:flex-none px-3 py-2.5 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 border border-transparent outline-none focus:bg-white" />
+              <input type="date" value={filterDateTo} onChange={(e) => setFilterDateTo(e.target.value)} className="flex-1 md:flex-none px-3 py-2.5 bg-slate-50 dark:bg-slate-700 dark:text-slate-300 rounded-xl text-[10px] sm:text-xs font-bold text-slate-600 border border-transparent outline-none focus:bg-white" />
               <button
                 type="button"
                 onClick={exportToWord}
@@ -308,41 +308,41 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
             </div>
           )}
 
-          <div className="bg-white rounded-[24px] sm:rounded-[40px] border border-slate-200 shadow-sm overflow-hidden overflow-x-auto no-scrollbar">
+          <div className="bg-white dark:bg-slate-800 rounded-[24px] sm:rounded-[40px] border border-slate-200 dark:border-slate-600 shadow-sm overflow-hidden overflow-x-auto no-scrollbar">
             <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
-                <tr className="bg-slate-50/50 text-slate-400 text-[9px] sm:text-[10px]">
-                  <th className="px-4 sm:px-8 py-4 sm:py-6 font-black uppercase tracking-widest border-b border-slate-100">Преподаватель</th>
-                  <th className="px-4 sm:px-8 py-4 sm:py-6 font-black uppercase tracking-widest border-b border-slate-100">Прогресс</th>
-                  <th className="px-4 sm:px-8 py-4 sm:py-6 font-black uppercase tracking-widest border-b border-slate-100 text-center">Ср. Балл</th>
-                  <th className="px-4 sm:px-8 py-4 sm:py-6 font-black uppercase tracking-widest border-b border-slate-100">Действие</th>
+                <tr className="bg-slate-50/50 dark:bg-slate-700/50 text-slate-400 dark:text-slate-300 text-[9px] sm:text-[10px]">
+                  <th className="px-4 sm:px-8 py-4 sm:py-6 font-black uppercase tracking-widest border-b border-slate-100 dark:border-slate-600">Преподаватель</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-6 font-black uppercase tracking-widest border-b border-slate-100 dark:border-slate-600">Прогресс</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-6 font-black uppercase tracking-widest border-b border-slate-100 dark:border-slate-600 text-center">Ср. Балл</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-6 font-black uppercase tracking-widest border-b border-slate-100 dark:border-slate-600">Действие</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.map(user => {
                   const s = getUserStats(user.id);
                   return (
-                    <tr key={user.id} className="hover:bg-slate-50/50 transition-colors">
-                      <td className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-50">
+                    <tr key={user.id} className="hover:bg-slate-50/50 dark:bg-slate-700/50 transition-colors">
+                      <td className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-50 dark:border-slate-700">
                         <div className="flex items-center gap-3 sm:gap-4">
-                          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#10408A]/10 text-[#10408A] rounded-lg sm:rounded-xl flex items-center justify-center font-bold text-xs sm:text-base">{getInitial(user.name)}</div>
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#10408A]/10 dark:bg-[#10408A]/20 text-[#10408A] dark:text-[#6ba3f5] rounded-lg sm:rounded-xl flex items-center justify-center font-bold text-xs sm:text-base">{getInitial(user.name)}</div>
                           <div className="min-w-0">
-                            <p className="font-bold text-slate-900 text-xs sm:text-sm truncate max-w-[150px]">{user.name}</p>
-                            <p className="text-[9px] sm:text-xs text-slate-400 font-bold uppercase tracking-tight">Поток: {user.stream || '—'}</p>
-                            <p className="text-[9px] sm:text-xs text-slate-400 font-bold uppercase tracking-tight">Кафедра: {user.department || '—'}</p>
+                            <p className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm truncate max-w-[150px]">{user.name}</p>
+                            <p className="text-[9px] sm:text-xs text-slate-400 dark:text-slate-300 font-bold uppercase tracking-tight">Поток: {user.stream || '—'}</p>
+                            <p className="text-[9px] sm:text-xs text-slate-400 dark:text-slate-300 font-bold uppercase tracking-tight">Кафедра: {user.department || '—'}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-50">
+                      <td className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-50 dark:border-slate-700">
                         <div className="w-24 sm:w-32">
-                          <div className="flex justify-between items-center mb-1"><span className="text-[9px] sm:text-[10px] font-bold text-slate-400">{s.completion}%</span></div>
-                          <div className="w-full h-1 sm:h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="flex justify-between items-center mb-1"><span className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-300">{s.completion}%</span></div>
+                          <div className="w-full h-1 sm:h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
                             <div className="h-full bg-[#10408A]" style={{ width: `${s.completion}%` }}></div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-50 text-center"><span className={`text-sm sm:text-lg font-black ${s.average >= 50 ? 'text-emerald-600' : 'text-amber-500'}`}>{s.average}%</span></td>
-                      <td className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-50"><button onClick={() => setSelectedUserId(user.id)} className="px-3 py-1.5 bg-[#10408A]/10 text-[#10408A] rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold hover:bg-[#10408A] hover:text-white transition-all whitespace-nowrap">Детали</button></td>
+                      <td className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-50 dark:border-slate-700 text-center"><span className={`text-sm sm:text-lg font-black ${s.average >= 50 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-500 dark:text-amber-400'}`}>{s.average}%</span></td>
+                      <td className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-50 dark:border-slate-700"><button onClick={() => setSelectedUserId(user.id)} className="px-3 py-1.5 bg-[#10408A]/10 dark:bg-[#10408A]/20 text-[#10408A] dark:text-[#6ba3f5] rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold hover:bg-[#10408A] hover:text-white transition-all whitespace-nowrap">Детали</button></td>
                     </tr>
                   );
                 })}
@@ -353,21 +353,21 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
           <div className="lg:col-span-1 space-y-4 sm:space-y-6">
-            <div className="bg-white p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-slate-100 shadow-sm text-center space-y-4 sm:space-y-6">
+            <div className="bg-white p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-slate-100 dark:border-slate-600 shadow-sm text-center space-y-4 sm:space-y-6">
                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-[#10408A] rounded-[28px] sm:rounded-[32px] mx-auto flex items-center justify-center text-white text-3xl sm:text-4xl font-black shadow-2xl shadow-[#10408A]/10">{getInitial(selectedUser?.name)}</div>
                <div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900">{selectedUser?.name}</h3>
-                <p className="text-slate-400 text-[10px] sm:text-sm font-bold uppercase tracking-widest mt-1">Поток: {selectedUser?.stream || '—'}</p>
-                <p className="text-slate-400 text-[10px] sm:text-sm font-bold uppercase tracking-widest mt-1">Кафедра: {selectedUser?.department || '—'}</p>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{selectedUser?.name}</h3>
+                <p className="text-slate-400 dark:text-slate-300 text-[10px] sm:text-sm font-bold uppercase tracking-widest mt-1">Поток: {selectedUser?.stream || '—'}</p>
+                <p className="text-slate-400 dark:text-slate-300 text-[10px] sm:text-sm font-bold uppercase tracking-widest mt-1">Кафедра: {selectedUser?.department || '—'}</p>
                </div>
                <div className="pt-4 sm:pt-6 border-t border-slate-50 flex justify-center gap-6 sm:gap-8">
                  <div className="text-center">
-                   <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{selectedUserId === sessionUser.id ? 'Ваш средний балл' : 'Средний балл'}</p>
+                   <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-300 uppercase tracking-widest mb-1">{selectedUserId === sessionUser.id ? 'Ваш средний балл' : 'Средний балл'}</p>
                    <p className={`text-xl sm:text-2xl font-black ${(userDetailedStats?.average ?? 0) >= 50 ? 'text-[#10408A]' : 'text-amber-500'}`}>{userDetailedStats?.average}%</p>
                  </div>
                  <div className="w-[1px] h-8 sm:h-10 bg-slate-100"></div>
                  <div className="text-center">
-                   <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Курс пройден на</p>
+                   <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-300 uppercase tracking-widest mb-1">Курс пройден на</p>
                    <p className="text-xl sm:text-2xl font-black text-emerald-500">{userDetailedStats?.completion}%</p>
                  </div>
                </div>
@@ -378,23 +378,23 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                )}
             </div>
 
-            <div className="bg-white p-4 sm:p-5 rounded-[24px] sm:rounded-[32px] border border-slate-200 shadow-sm">
+            <div className="bg-white p-4 sm:p-5 rounded-[24px] sm:rounded-[32px] border border-slate-200 dark:border-slate-600 shadow-sm">
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-slate-50/80 rounded-xl p-3 sm:p-4 text-center border border-slate-100">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Занятий прошел</p>
+                <div className="bg-slate-50/80 dark:bg-slate-700/50 rounded-xl p-3 sm:p-4 text-center border border-slate-100 dark:border-slate-600">
+                  <p className="text-[9px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest">Занятий прошел</p>
                   <p className="text-lg sm:text-xl font-black text-[#10408A] mt-1">{completedLessonsCount}</p>
                 </div>
-                <div className="bg-slate-50/80 rounded-xl p-3 sm:p-4 text-center border border-slate-100">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Занятий осталось</p>
-                  <p className="text-lg sm:text-xl font-black text-slate-900 mt-1">{Math.max(0, lessonsWithTests.length - completedLessonsCount)}</p>
+                <div className="bg-slate-50/80 dark:bg-slate-700/50 rounded-xl p-3 sm:p-4 text-center border border-slate-100 dark:border-slate-600">
+                  <p className="text-[9px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest">Занятий осталось</p>
+                  <p className="text-lg sm:text-xl font-black text-slate-900 dark:text-white mt-1">{Math.max(0, lessonsWithTests.length - completedLessonsCount)}</p>
                 </div>
-                <div className="bg-slate-50/80 rounded-xl p-3 sm:p-4 text-center border border-slate-100">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Заданий завершил</p>
+                <div className="bg-slate-50/80 dark:bg-slate-700/50 rounded-xl p-3 sm:p-4 text-center border border-slate-100 dark:border-slate-600">
+                  <p className="text-[9px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest">Заданий завершил</p>
                   <p className="text-lg sm:text-xl font-black text-emerald-600 mt-1">{completedTasksCount}</p>
                 </div>
-                <div className="bg-slate-50/80 rounded-xl p-3 sm:p-4 text-center border border-slate-100">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Заданий осталось</p>
-                  <p className="text-lg sm:text-xl font-black text-slate-900 mt-1">{Math.max(0, tasks.length - completedTasksCount)}</p>
+                <div className="bg-slate-50/80 dark:bg-slate-700/50 rounded-xl p-3 sm:p-4 text-center border border-slate-100 dark:border-slate-600">
+                  <p className="text-[9px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-widest">Заданий осталось</p>
+                  <p className="text-lg sm:text-xl font-black text-slate-900 dark:text-white mt-1">{Math.max(0, tasks.length - completedTasksCount)}</p>
                 </div>
               </div>
             </div>
@@ -426,10 +426,10 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                   return (
                     <div
                       key={lesson.id}
-                      className="bg-white p-4 sm:p-6 rounded-[20px] sm:rounded-3xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      className="bg-white p-4 sm:p-6 rounded-[20px] sm:rounded-3xl border border-slate-200 dark:border-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                     >
                       <div className="min-w-0 flex-1">
-                        <h4 className="font-bold text-slate-900 text-xs sm:text-sm truncate">{lesson.title}</h4>
+                        <h4 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm truncate">{lesson.title}</h4>
                         <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase mt-1">
                           {res ? `Пройдено: ${new Date(res.timestamp).toLocaleDateString()} • попыток: ${res.attempts ?? 1}` : 'Не пройдено'}
                         </p>
@@ -478,10 +478,10 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                   const isSubmitted = !!res?.submitted;
                   const statusLabel = reviews.length > 0 ? 'Оценено' : (isSubmitted ? 'Отправлено на проверку' : 'Не отправлено');
                   return (
-                    <div key={task.id} className="bg-white rounded-[24px] sm:rounded-[32px] border border-slate-200 overflow-hidden shadow-sm p-4 sm:p-6">
+                    <div key={task.id} className="bg-white dark:bg-slate-800 rounded-[24px] sm:rounded-[32px] border border-slate-200 dark:border-slate-600 overflow-hidden shadow-sm p-4 sm:p-6">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div className="min-w-0 flex-1">
-                          <h4 className="font-bold text-slate-900 text-sm sm:text-lg truncate">{task.title}</h4>
+                          <h4 className="font-bold text-slate-900 dark:text-white text-sm sm:text-lg truncate">{task.title}</h4>
                           <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest mt-1">
                             <span className={reviews.length > 0 ? 'text-[#10408A]' : (isSubmitted ? 'text-amber-600' : 'text-slate-300')}>
                               {statusLabel}
@@ -535,18 +535,18 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
             </div>
             <div className="p-6 sm:p-8 space-y-4 overflow-y-auto">
               {!selectedTest.result ? (
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center text-slate-500 text-sm font-bold">
+                <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 dark:border-slate-600 rounded-2xl p-6 text-center text-slate-500 text-sm font-bold">
                   Пользователь еще не проходил этот тест.
                 </div>
               ) : (
                 <div className="space-y-4">
                   {attemptsList.length === 0 ? (
-                    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center text-slate-500 text-sm font-bold">
+                    <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 dark:border-slate-600 rounded-2xl p-6 text-center text-slate-500 text-sm font-bold">
                       Нет сохраненных попыток по этому тесту.
                     </div>
                   ) : (
                     <>
-                      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs sm:text-sm font-bold text-slate-600 flex flex-wrap gap-2 justify-between items-center">
+                      <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 dark:border-slate-600 rounded-2xl p-4 text-xs sm:text-sm font-bold text-slate-600 flex flex-wrap gap-2 justify-between items-center">
                         <span>Попыток: {attemptsList.length}</span>
                         {activeAttempt?.invalidated && <span className="text-rose-600">Попытка аннулирована (переключение вкладок)</span>}
                       </div>
@@ -555,14 +555,14 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                           <button
                             key={`${attempt.timestamp}-${idx}`}
                             onClick={() => setSelectedTest(prev => prev ? { ...prev, attemptIndex: idx } : prev)}
-                            className={`px-3 py-2 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest border transition-all ${idx === activeAttemptIndex ? 'bg-[#10408A] text-white border-[#10408A]' : 'bg-white text-slate-600 border-slate-200 hover:border-[#10408A]/40'}`}
+                            className={`px-3 py-2 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest border transition-all ${idx === activeAttemptIndex ? 'bg-[#10408A] text-white border-[#10408A]' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600 hover:border-[#10408A]/40'}`}
                           >
                             Попытка {idx + 1} • {attempt.percentage}%
                           </button>
                         ))}
                       </div>
                       {!activeAttempt?.answers || activeAttempt.answers.length === 0 ? (
-                        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center text-slate-500 text-sm font-bold">
+                        <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 dark:border-slate-600 rounded-2xl p-6 text-center text-slate-500 text-sm font-bold">
                           Нет сохраненных ответов по выбранной попытке.
                         </div>
                       ) : (
@@ -570,13 +570,13 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                           {activeAttempt.answers.map((ans, idx) => {
                             const question = (selectedTest.lesson.questions || []).find(q => q.id === ans.questionId);
                             return (
-                              <div key={`${ans.questionId}-${idx}`} className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6">
+                              <div key={`${ans.questionId}-${idx}`} className="bg-white border border-slate-200 dark:border-slate-600 rounded-2xl p-5 sm:p-6">
                                 <div className="flex items-start gap-3">
                                   <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-black ${ans.isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
                                     {idx + 1}
                                   </span>
                                   <div className="min-w-0">
-                                    <p className="text-sm sm:text-base font-bold text-slate-900">{question?.text || 'Вопрос'}</p>
+                                    <p className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">{question?.text || 'Вопрос'}</p>
                                     <div className="mt-3 grid gap-2">
                                       <div className="text-xs sm:text-sm text-slate-600">
                                         <span className="font-black text-slate-400 uppercase tracking-widest text-[9px] sm:text-[10px] block mb-1">Ответ пользователя</span>
@@ -586,7 +586,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                                       </div>
                                       <div className="text-xs sm:text-sm text-slate-600">
                                         <span className="font-black text-slate-400 uppercase tracking-widest text-[9px] sm:text-[10px] block mb-1">Правильный ответ</span>
-                                        <span className="font-bold text-slate-900">
+                                        <span className="font-bold text-slate-900 dark:text-white">
                                           {getAnswerText(selectedTest.lesson, ans.questionId, question?.correctAnswerIndex ?? null)}
                                         </span>
                                       </div>
@@ -603,7 +603,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                 </div>
               )}
             </div>
-            <div className="p-6 sm:p-8 bg-slate-50/50 flex justify-end">
+            <div className="p-6 sm:p-8 bg-slate-50/50 dark:bg-slate-700/50 flex justify-end">
               <button type="button" onClick={() => setSelectedTest(null)} className="px-8 py-3 bg-[#10408A] text-white rounded-2xl font-black shadow-lg text-sm">
                 Закрыть
               </button>
@@ -624,7 +624,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
               <div className="space-y-4">
                 <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Выполненное задание</h4>
                 {selectedTaskResult.result.response ? (
-                  <div className="p-4 sm:p-5 bg-slate-50 rounded-2xl border border-slate-100 text-slate-800 leading-relaxed prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: selectedTaskResult.result.response }} />
+                  <div className="p-4 sm:p-5 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-600 text-slate-800 leading-relaxed prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: selectedTaskResult.result.response }} />
                 ) : (
                   <p className="text-sm text-slate-400 italic">Текстовый ответ не приложен.</p>
                 )}
@@ -635,7 +635,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                       {selectedTaskResult.result.files.map((file, idx) => {
                         const downloadHref = file.isLink ? file.data : (file.data.startsWith('data:') ? file.data : `data:${file.type};base64,${file.data}`);
                         return (
-                          <div key={idx} className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white border border-slate-200 rounded-xl">
+                          <div key={idx} className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white border border-slate-200 dark:border-slate-600 rounded-xl">
                             <div className="flex items-center gap-3 min-w-0">
                               <div className="p-2 bg-slate-100 rounded-lg shrink-0">
                                 <svg className="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
@@ -649,7 +649,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                               <button
                                 type="button"
                                 onClick={() => handleTaskResultPreviewFile(idx)}
-                                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all border ${taskResultPreviewFileIndex === idx ? 'bg-[#10408A] text-white border-[#10408A]' : 'bg-white text-[#10408A] border-slate-200 hover:border-[#10408A]'}`}
+                                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all border ${taskResultPreviewFileIndex === idx ? 'bg-[#10408A] text-white border-[#10408A]' : 'bg-white dark:bg-slate-800 text-[#10408A] dark:text-[#6ba3f5] border-slate-200 dark:border-slate-600 hover:border-[#10408A]'}`}
                               >
                                 {taskResultPreviewFileIndex === idx ? 'Скрыть' : 'Просмотр'}
                               </button>
@@ -669,7 +669,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                       })}
                     </div>
                     {taskResultPreviewFileIndex !== null && selectedTaskResult.result.files?.[taskResultPreviewFileIndex] && (
-                      <div className="mt-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                      <div className="mt-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-600">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Просмотр</p>
                         {renderTaskResultFileContent(selectedTaskResult.result.files[taskResultPreviewFileIndex], taskResultPreviewFileIndex)}
                       </div>
@@ -683,7 +683,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                 <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Оценки и отзывы</h4>
                 {selectedTaskResult.result.reviews.length > 0 ? (
                   selectedTaskResult.result.reviews.map((r, i) => (
-                    <div key={i} className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                    <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-4 border border-slate-100 dark:border-slate-600">
                       <p className="text-2xl font-black text-[#10408A]">{r.grade}/5</p>
                       {r.comment && <p className="text-sm text-slate-600 mt-2">{r.comment}</p>}
                       <p className="text-[10px] text-slate-400 mt-2">Проверил: {r.adminName}</p>
@@ -694,7 +694,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ lessons, tasks, users, isAdmi
                 )}
               </div>
             </div>
-            <div className="p-6 sm:p-8 bg-slate-50/50 flex justify-end shrink-0 border-t border-slate-100">
+            <div className="p-6 sm:p-8 bg-slate-50/50 dark:bg-slate-700/50 flex justify-end shrink-0 border-t border-slate-100">
               <button type="button" onClick={closeTaskResultModal} className="px-8 py-3 bg-[#10408A] text-white rounded-2xl font-black shadow-lg text-sm">
                 Закрыть
               </button>

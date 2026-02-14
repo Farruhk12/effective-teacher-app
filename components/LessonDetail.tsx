@@ -344,7 +344,7 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
   const renderFilePreview = (file: LessonFile, index: number) => {
     if (file.isLink) {
        return (
-         <div className="p-8 text-center bg-white border border-slate-200 rounded-2xl">
+         <div className="p-8 text-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl">
            <p className="font-bold text-lg text-slate-900 mb-4">{file.name}</p>
            <a href={file.data} target="_blank" rel="noopener noreferrer" className="inline-block px-10 py-3 bg-amber-500 text-white rounded-xl font-bold shadow-lg shadow-amber-500/20 active:scale-95 transition-all">Перейти по ссылке →</a>
          </div>
@@ -355,7 +355,7 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
     if (type.startsWith('image/')) return <div className="flex justify-center bg-slate-100 rounded-xl overflow-hidden p-4"><img src={source} alt={name} className="max-w-full max-h-[500px] object-contain shadow-sm rounded-lg" /></div>;
     if (type === 'application/pdf') return <div className="h-[600px] bg-slate-100 rounded-xl overflow-hidden border border-slate-200"><object data={source} type="application/pdf" className="w-full h-full" /></div>;
     if (type.startsWith('video/')) return <div className="bg-black rounded-xl overflow-hidden border border-slate-200"><video src={source} controls className="w-full max-h-[500px]" /></div>;
-    return <div className="p-8 text-center bg-white border border-slate-200 rounded-2xl"><p className="font-bold">{name}</p><a href={source} download={name} className="mt-4 inline-block px-6 py-2 bg-[#10408A] text-white rounded-lg">Скачать</a></div>;
+    return <div className="p-8 text-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl"><p className="font-bold">{name}</p><a href={source} download={name} className="mt-4 inline-block px-6 py-2 bg-[#10408A] text-white rounded-lg">Скачать</a></div>;
   };
 
   const displayResult = lastResult || existingResult;
@@ -376,8 +376,8 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
 
   if (testInProgress) {
     return (
-      <div className="max-w-4xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
-        <div className="relative rounded-[48px] overflow-hidden shadow-2xl border-4 border-white bg-gradient-to-br from-[#10408A] to-[#0d336e] flex items-center justify-between gap-4 px-8 sm:px-10 md:px-12 py-8 flex-wrap">
+      <div className="max-w-4xl mx-auto space-y-4 sm:space-y-8 pb-16 sm:pb-20 px-2 sm:px-0 animate-in fade-in duration-500">
+        <div className="relative rounded-2xl sm:rounded-[32px] md:rounded-[48px] overflow-hidden shadow-2xl border-2 sm:border-4 border-white bg-gradient-to-br from-[#10408A] to-[#0d336e] flex items-center justify-between gap-3 sm:gap-4 px-4 sm:px-10 md:px-12 py-5 sm:py-8 flex-wrap">
           <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight pr-4 min-w-0 flex-1">{lesson.title}</h2>
           <button
             type="button"
@@ -391,51 +391,51 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
         {/* Модалка: выход из теста — тест будет аннулирован */}
         {showExitTestModal && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm" onClick={() => setShowExitTestModal(false)}>
-            <div className="bg-white rounded-[32px] shadow-2xl border border-slate-200 p-8 max-w-md w-full text-center space-y-6" onClick={e => e.stopPropagation()}>
-              <div className="w-16 h-16 mx-auto rounded-full bg-rose-100 flex items-center justify-center">
-                <svg className="w-8 h-8 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            <div className="bg-white dark:bg-slate-800 rounded-2xl sm:rounded-[32px] shadow-2xl border border-slate-200 dark:border-slate-600 p-5 sm:p-8 max-w-md w-full text-center space-y-5 sm:space-y-6" onClick={e => e.stopPropagation()}>
+              <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-rose-100 flex items-center justify-center">
+                <svg className="w-7 h-7 sm:w-8 sm:h-8 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
               </div>
-              <p className="text-lg font-black text-slate-900">Если Вы выйдите, ваш тест будет аннулирован</p>
-              <p className="text-slate-500 text-sm">Результаты не сохранятся и попытка будет засчитана. Вы уверены?</p>
-              <div className="flex gap-4">
-                <button onClick={() => setShowExitTestModal(false)} className="flex-1 py-4 px-6 bg-slate-100 text-slate-700 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-200 transition-all">Остаться</button>
-                <button onClick={() => invalidateTest('user-exit')} className="flex-1 py-4 px-6 bg-rose-500 text-white rounded-2xl font-black uppercase tracking-widest shadow-lg hover:bg-rose-600 transition-all">Выйти</button>
+              <p className="text-base sm:text-lg font-black text-slate-900">Если Вы выйдите, ваш тест будет аннулирован</p>
+              <p className="text-slate-500 text-xs sm:text-sm">Результаты не сохранятся и попытка будет засчитана. Вы уверены?</p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button onClick={() => setShowExitTestModal(false)} className="flex-1 py-4 px-6 bg-slate-100 text-slate-700 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-200 transition-all min-h-[48px]">Остаться</button>
+                <button onClick={() => invalidateTest('user-exit')} className="flex-1 py-4 px-6 bg-rose-500 text-white rounded-2xl font-black uppercase tracking-widest shadow-lg hover:bg-rose-600 transition-all min-h-[48px]">Выйти</button>
               </div>
             </div>
           </div>
         )}
-        <div className="bg-white rounded-[40px] p-6 sm:p-10 border border-slate-200 shadow-sm">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl sm:rounded-[32px] md:rounded-[40px] p-4 sm:p-10 border border-slate-200 dark:border-slate-600 shadow-sm">
           {(() => {
             const currentQ = activeQuestions[currentQuestionIndex];
             return (
               <>
-                <div className="p-10 border-b border-slate-100 bg-slate-50/30 flex flex-col sm:flex-row justify-between items-center gap-6">
-                  <div>
-                    <h3 className="text-xl font-black text-slate-900">Проверка усвоенного материала</h3>
+                <div className="p-4 sm:p-10 border-b border-slate-100 bg-slate-50/30 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+                  <div className="min-w-0">
+                    <h3 className="text-base sm:text-xl font-black text-slate-900">Проверка усвоенного материала</h3>
                     <p className="text-slate-400 font-bold text-xs uppercase tracking-widest mt-1">Вопрос {currentQuestionIndex + 1} из {activeQuestions.length}</p>
                   </div>
-                  <div className="flex items-center gap-10">
+                  <div className="flex items-center gap-6 sm:gap-10 shrink-0">
                     <div className="text-center">
                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Баллы</p>
-                      <p className="text-3xl font-black text-[#10408A]">{correctAnswersCount}</p>
+                      <p className="text-2xl sm:text-3xl font-black text-[#10408A]">{correctAnswersCount}</p>
                     </div>
-                    <div className="w-[1px] h-10 bg-slate-200"></div>
+                    <div className="w-px h-8 sm:h-10 bg-slate-200"></div>
                     <div className="text-center">
                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Время</p>
-                      <p className="text-2xl font-black text-slate-700 tabular-nums">{formatTime(remainingSeconds)}</p>
+                      <p className="text-xl sm:text-2xl font-black text-slate-700 tabular-nums">{formatTime(remainingSeconds)}</p>
                     </div>
                   </div>
                 </div>
-                <div className="p-12">
-                  <div className="mb-6 p-4 border rounded-2xl text-sm font-bold bg-amber-50 border-amber-200 text-amber-700">
+                <div className="p-4 sm:p-8 md:p-12">
+                  <div className="mb-4 sm:mb-6 p-3 sm:p-4 border rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold bg-amber-50 border-amber-200 text-amber-700">
                     Во время теста нельзя переключать вкладки или выходить из раздела. Нарушение приведёт к аннулированию теста.
                   </div>
-                  <div className="space-y-10">
-                    <h4 className="text-2xl font-black text-slate-900 flex items-start leading-tight">
-                      <span className="bg-[#10408A] text-white w-10 h-10 rounded-xl flex items-center justify-center text-sm mr-5 shrink-0 mt-1 shadow-lg shadow-[#10408A]/20">{currentQuestionIndex + 1}</span>
-                      {currentQ?.text}
+                  <div className="space-y-6 sm:space-y-10">
+                    <h4 className="text-lg sm:text-2xl font-black text-slate-900 flex items-start leading-snug sm:leading-tight">
+                      <span className="bg-[#10408A] text-white w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center text-xs sm:text-sm mr-3 sm:mr-5 shrink-0 mt-0.5 sm:mt-1 shadow-lg shadow-[#10408A]/20">{currentQuestionIndex + 1}</span>
+                      <span className="min-w-0">{currentQ?.text}</span>
                     </h4>
-                    <div className="grid gap-4 pl-15">
+                    <div className="grid gap-3 sm:gap-4 pl-0 sm:pl-14">
                       {currentQ?.options.map((opt, oIdx) => {
                         const isSelected = selectedAnswer === oIdx;
                         const isCorrect = currentQ.correctAnswerIndex === oIdx;
@@ -450,7 +450,7 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                             key={oIdx}
                             onClick={() => handleSelect(oIdx)}
                             disabled={isAnswered}
-                            className={`w-full text-left p-6 rounded-3xl border-2 transition-all font-bold text-lg active:scale-[0.99] ${btnStyle}`}
+                            className={`w-full text-left p-4 sm:p-6 rounded-2xl sm:rounded-3xl border-2 transition-all font-bold text-base sm:text-lg active:scale-[0.99] min-h-[48px] ${btnStyle}`}
                           >
                             {opt}
                           </button>
@@ -458,8 +458,8 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                       })}
                     </div>
                     {isAnswered && (
-                      <div className="pt-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                        <button onClick={handleNext} className="w-full py-5 bg-slate-900 text-white rounded-[24px] font-black text-lg shadow-2xl transition-all active:scale-95 uppercase tracking-widest">
+                      <div className="pt-4 sm:pt-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        <button onClick={handleNext} className="w-full py-4 sm:py-5 bg-slate-900 text-white rounded-2xl sm:rounded-[24px] font-black text-base sm:text-lg shadow-2xl transition-all active:scale-95 uppercase tracking-widest min-h-[48px]">
                           {currentQuestionIndex < activeQuestions.length - 1 ? 'Далее' : 'Завершить'}
                         </button>
                       </div>
@@ -475,10 +475,10 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
-      <div className="flex items-center justify-between gap-4 mb-2">
+    <div className="max-w-4xl mx-auto space-y-4 sm:space-y-8 pb-16 sm:pb-20 px-2 sm:px-0 animate-in fade-in duration-500">
+      <div className="flex items-center justify-between gap-3 sm:gap-4 mb-2">
         <div className="flex items-center gap-4">
-          <button onClick={onBack} className="p-2 bg-white rounded-lg border border-slate-200 text-slate-500 hover:text-[#10408A] transition-all"><svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg></button>
+          <button onClick={onBack} className="p-2.5 sm:p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:text-[#10408A] transition-all min-h-[44px] min-w-[44px] flex items-center justify-center"><svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg></button>
           <span className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Вернуться к списку</span>
         </div>
         {isAdmin && onEdit && (
@@ -492,11 +492,11 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
         )}
       </div>
 
-      <div className="relative rounded-[48px] overflow-hidden shadow-2xl border-4 border-white bg-gradient-to-br from-[#10408A] to-[#0d336e] flex items-center px-8 sm:px-10 md:px-12 py-12 sm:py-16">
-         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">{lesson.title}</h2>
+      <div className="relative rounded-2xl sm:rounded-[32px] md:rounded-[48px] overflow-hidden shadow-2xl border-2 sm:border-4 border-white bg-gradient-to-br from-[#10408A] to-[#0d336e] flex items-center px-4 sm:px-10 md:px-12 py-8 sm:py-12 md:py-16">
+         <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">{lesson.title}</h2>
       </div>
 
-      <div className="bg-white rounded-[40px] p-6 sm:p-10 border border-slate-200 shadow-sm space-y-8 sm:space-y-10">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl sm:rounded-[32px] md:rounded-[40px] p-4 sm:p-6 md:p-10 border border-slate-200 dark:border-slate-600 shadow-sm space-y-6 sm:space-y-10">
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setActiveTab('description')}
@@ -544,11 +544,11 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                         </p>
                       </div>
                     </div>
-                    <button onClick={() => setActivePreviewIndex(activePreviewIndex === idx ? null : idx)} className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all shadow-sm ${activePreviewIndex === idx ? 'bg-[#10408A] text-white' : 'bg-white text-slate-700 border border-slate-200'}`}>
+                    <button onClick={() => setActivePreviewIndex(activePreviewIndex === idx ? null : idx)} className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all shadow-sm ${activePreviewIndex === idx ? 'bg-[#10408A] text-white' : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600'}`}>
                       {activePreviewIndex === idx ? 'Закрыть' : (file.isLink ? 'Открыть' : 'Просмотр')}
                     </button>
                   </div>
-                  {activePreviewIndex === idx && <div className="p-6 bg-white border-t border-slate-200 animate-in slide-in-from-top-4 duration-300">{renderFilePreview(file, idx)}</div>}
+                  {activePreviewIndex === idx && <div className="p-6 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-600 animate-in slide-in-from-top-4 duration-300">{renderFilePreview(file, idx)}</div>}
                 </div>
               ))}
             </div>
@@ -559,7 +559,7 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
       </div>
       
       {activeTab === 'tests' && activeQuestions.length > 0 && (
-        <div className="bg-white rounded-[40px] border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-[40px] border border-slate-200 dark:border-slate-600 shadow-sm overflow-hidden">
           {isAdmin ? (
             <div className="p-8 sm:p-12 space-y-8">
               <div className="text-center space-y-2">
@@ -606,22 +606,22 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
               </div>
             </div>
           ) : !testConfirmedStart && !testFinished ? (
-            <div className="p-8 sm:p-12 max-w-2xl mx-auto">
-              <div className="bg-amber-50 border-2 border-amber-200 rounded-[32px] p-8 sm:p-10 space-y-8">
+            <div className="p-4 sm:p-8 md:p-12 max-w-2xl mx-auto">
+              <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl sm:rounded-[32px] p-5 sm:p-8 md:p-10 space-y-6 sm:space-y-8">
                 <h3 className="text-xl font-black text-slate-900">Перед началом теста</h3>
                 <p className="text-slate-700 leading-relaxed">
                   Время на решение тестов — <strong>20 минут</strong> на 20 вопросов. Во время прохождения <strong>нельзя переключать вкладки</strong>, выходить из теста, отключать телефон или говорить по телефону. В этих случаях система зафиксирует нарушение и <strong>аннулирует ваш тест</strong>. Вы готовы решать тесты сейчас?
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
                   <button
                     onClick={startTest}
-                    className="flex-1 py-4 px-6 bg-[#10408A] text-white rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-[#10408A]/20 hover:bg-[#0d336e] transition-all active:scale-95"
+                    className="flex-1 py-4 px-6 bg-[#10408A] text-white rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-[#10408A]/20 hover:bg-[#0d336e] transition-all active:scale-95 min-h-[48px]"
                   >
                     Начать
                   </button>
                   <button
                     onClick={() => setActiveTab('description')}
-                    className="flex-1 py-4 px-6 bg-white border-2 border-slate-200 text-slate-700 rounded-2xl font-black uppercase tracking-widest hover:border-slate-300 transition-all active:scale-95"
+                    className="flex-1 py-4 px-6 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-2xl font-black uppercase tracking-widest hover:border-slate-300 transition-all active:scale-95 min-h-[48px]"
                   >
                     Вернуться к теме
                   </button>
@@ -630,13 +630,13 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
             </div>
           ) : (
             <>
-              <div className="p-10 border-b border-slate-100 bg-slate-50/30 flex flex-col sm:flex-row justify-between items-center gap-6">
-                <div>
-                  <h3 className="text-xl font-black text-slate-900">Проверка усвоенного материала</h3>
+              <div className="p-4 sm:p-10 border-b border-slate-100 bg-slate-50/30 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+                <div className="min-w-0">
+                  <h3 className="text-base sm:text-xl font-black text-slate-900">Проверка усвоенного материала</h3>
                   <p className="text-slate-400 font-bold text-xs uppercase tracking-widest mt-1">Вопрос {testFinished ? activeQuestions.length : currentQuestionIndex + 1} из {activeQuestions.length}</p>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Попытка: {currentAttemptNumber} из {maxAttempts}</p>
                 </div>
-                <div className="flex items-center gap-10">
+                <div className="flex items-center gap-6 sm:gap-10 shrink-0">
                   <div className="text-center">
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Баллы</p>
                     <p className="text-3xl font-black text-[#10408A]">{testFinished ? (existingResult ? existingResult.score : correctAnswersCount) : correctAnswersCount}</p>
@@ -648,21 +648,21 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                   </div>
                 </div>
               </div>
-              <div className="p-12">
+              <div className="p-4 sm:p-8 md:p-12">
                 {!testFinished && (
-                  <div className={`mb-6 p-4 border rounded-2xl text-sm font-bold ${tabSwitchCount > 0 ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-slate-50 border-slate-200 text-slate-500'}`}>
+                  <div className={`mb-4 sm:mb-6 p-3 sm:p-4 border rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold ${tabSwitchCount > 0 ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-slate-50 border-slate-200 text-slate-500'}`}>
                     {tabSwitchCount > 0
                       ? `Предупреждение: переключений вкладок ${tabSwitchCount}. Осталось ${remainingSwitches} до аннулирования.`
                       : 'Внимание: при переключении между вкладками более 3 раз тест будет аннулирован.'}
                   </div>
                 )}
                 {!testFinished ? (
-                  <div className="space-y-10">
-                    <h4 className="text-2xl font-black text-slate-900 flex items-start leading-tight">
-                      <span className="bg-[#10408A] text-white w-10 h-10 rounded-xl flex items-center justify-center text-sm mr-5 shrink-0 mt-1 shadow-lg shadow-[#10408A]/20">{currentQuestionIndex + 1}</span>
-                      {currentQ?.text}
+                  <div className="space-y-6 sm:space-y-10">
+                    <h4 className="text-lg sm:text-2xl font-black text-slate-900 flex items-start leading-snug sm:leading-tight">
+                      <span className="bg-[#10408A] text-white w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center text-xs sm:text-sm mr-3 sm:mr-5 shrink-0 mt-0.5 sm:mt-1 shadow-lg shadow-[#10408A]/20">{currentQuestionIndex + 1}</span>
+                      <span className="min-w-0">{currentQ?.text}</span>
                     </h4>
-                    <div className="grid gap-4 pl-15">
+                    <div className="grid gap-3 sm:gap-4 pl-0 sm:pl-14">
                       {currentQ?.options.map((opt, oIdx) => {
                         const isSelected = selectedAnswer === oIdx;
                         const isCorrect = currentQ.correctAnswerIndex === oIdx;
@@ -677,7 +677,7 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                             key={oIdx} 
                             onClick={() => handleSelect(oIdx)} 
                             disabled={isAnswered} 
-                            className={`w-full text-left p-6 rounded-3xl border-2 transition-all font-bold text-lg active:scale-[0.99] ${btnStyle}`}
+                            className={`w-full text-left p-4 sm:p-6 rounded-2xl sm:rounded-3xl border-2 transition-all font-bold text-base sm:text-lg active:scale-[0.99] min-h-[48px] ${btnStyle}`}
                           >
                             {opt}
                           </button>
@@ -685,15 +685,15 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                       })}
                     </div>
                     {isAnswered && (
-                      <div className="pt-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                        <button onClick={handleNext} className="w-full py-5 bg-slate-900 text-white rounded-[24px] font-black text-lg shadow-2xl transition-all active:scale-95 uppercase tracking-widest">
+                      <div className="pt-4 sm:pt-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        <button onClick={handleNext} className="w-full py-4 sm:py-5 bg-slate-900 text-white rounded-2xl sm:rounded-[24px] font-black text-base sm:text-lg shadow-2xl transition-all active:scale-95 uppercase tracking-widest min-h-[48px]">
                           {currentQuestionIndex < activeQuestions.length - 1 ? 'Далее' : 'Завершить'}
                         </button>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="text-center py-10 space-y-8 animate-in zoom-in-95 duration-500">
+                  <div className="text-center py-6 sm:py-10 space-y-6 sm:space-y-8 animate-in zoom-in-95 duration-500">
                     <div className={`w-32 h-32 mx-auto rounded-[40px] flex items-center justify-center shadow-2xl ${currentPercentage >= 50 ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white'}`}>
                       <svg className="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d={currentPercentage >= 50 ? "M5 13l4 4L19 7" : "M6 18L18 6M6 6l12 12"} />
@@ -722,13 +722,13 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                     </div>
                     {canRetry && (
                       <div className="pt-2">
-                        <button onClick={startRetake} className="px-10 py-4 bg-slate-900 text-white rounded-[24px] font-black uppercase tracking-widest shadow-xl transition-all active:scale-95">
+                        <button onClick={startRetake} className="w-full sm:w-auto px-6 sm:px-10 py-4 bg-slate-900 text-white rounded-2xl sm:rounded-[24px] font-black uppercase tracking-widest shadow-xl transition-all active:scale-95 min-h-[48px]">
                           Пройти повторно
                         </button>
                       </div>
                     )}
                     <div className="pt-4">
-                      <button onClick={onBack} className="px-12 py-5 bg-[#10408A] text-white rounded-[24px] font-black uppercase tracking-widest shadow-xl shadow-[#10408A]/20 transition-all active:scale-95">Вернуться в кабинет</button>
+                      <button onClick={onBack} className="w-full sm:w-auto px-6 sm:px-12 py-4 sm:py-5 bg-[#10408A] text-white rounded-2xl sm:rounded-[24px] font-black uppercase tracking-widest shadow-xl shadow-[#10408A]/20 transition-all active:scale-95 min-h-[48px]">Вернуться в кабинет</button>
                     </div>
                   </div>
                 )}

@@ -85,27 +85,27 @@ const Login: React.FC<LoginProps> = ({ onLogin, users, loadError, onRetry, isLoa
   const placeholderByTab = activeTab === 'admin' ? 'Выберите администратора...' : 'Выберите преподавателя...';
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white p-6 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 p-4 sm:p-6 font-sans">
       <div className="max-w-md w-full animate-in fade-in zoom-in-95 duration-500">
-        <div className="text-center mb-8">
-          <img src={logoUrl} alt="Logo" className="h-24 mx-auto object-contain mb-6 drop-shadow-xl" />
-          <h2 className="text-3xl font-black text-[#0E1C1C] tracking-tight">Личный кабинет</h2>
-          <p className="text-slate-400 font-medium mt-2">Выберите свой профиль для входа</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <img src={logoUrl} alt="Logo" className="h-20 sm:h-24 mx-auto object-contain mb-4 sm:mb-6 drop-shadow-xl" />
+          <h2 className="text-2xl sm:text-3xl font-black text-[#0E1C1C] dark:text-white tracking-tight">Личный кабинет</h2>
+          <p className="text-slate-400 dark:text-slate-500 font-medium mt-2 text-sm sm:text-base">Выберите свой профиль для входа</p>
         </div>
 
         {/* Вкладки Админ / Преподаватель */}
-        <div className="flex rounded-2xl bg-slate-100 p-1.5 mb-6">
+        <div className="flex rounded-2xl bg-slate-100 dark:bg-slate-800 p-1.5 mb-6">
           <button
             type="button"
             onClick={() => switchTab('admin')}
-            className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'admin' ? 'bg-white text-[#10408A] shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'admin' ? 'bg-white dark:bg-slate-700 text-[#10408A] shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
           >
             Админ
           </button>
           <button
             type="button"
             onClick={() => switchTab('teacher')}
-            className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'teacher' ? 'bg-white text-[#10408A] shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'teacher' ? 'bg-white dark:bg-slate-700 text-[#10408A] shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
           >
             Преподаватель
           </button>
@@ -129,9 +129,9 @@ const Login: React.FC<LoginProps> = ({ onLogin, users, loadError, onRetry, isLoa
         )}
 
         {!loadError && !isLoading && users.length === 0 && (
-          <div className="mb-6 p-5 bg-slate-100 border border-slate-200 rounded-2xl text-left">
-            <p className="text-slate-700 font-bold text-sm">Список профилей пуст</p>
-            <p className="text-slate-500 text-xs mt-2">В листе «Users» таблицы нет строк с пользователями или данные ещё не загрузились. Нажмите «Повторить».</p>
+          <div className="mb-6 p-5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl text-left">
+            <p className="text-slate-700 dark:text-slate-300 font-bold text-sm">Список профилей пуст</p>
+            <p className="text-slate-500 dark:text-slate-400 text-xs mt-2">В листе «Users» таблицы нет строк с пользователями или данные ещё не загрузились. Нажмите «Повторить».</p>
             {onRetry && (
               <button type="button" onClick={onRetry} className="mt-4 px-5 py-2.5 bg-slate-600 text-white rounded-xl text-sm font-bold hover:bg-slate-700 transition-all">
                 Повторить
@@ -141,11 +141,11 @@ const Login: React.FC<LoginProps> = ({ onLogin, users, loadError, onRetry, isLoa
         )}
 
         {!loadError && !isLoading && users.length > 0 && usersByRole.length === 0 && (
-          <div className="mb-6 p-5 bg-slate-100 border border-slate-200 rounded-2xl text-left">
-            <p className="text-slate-700 font-bold text-sm">
-              {activeTab === 'admin' ? 'Нет администраторов' : 'Нет преподавателей'}
-            </p>
-            <p className="text-slate-500 text-xs mt-2">
+<div className="mb-6 p-5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl text-left">
+          <p className="text-slate-700 dark:text-slate-300 font-bold text-sm">
+            {activeTab === 'admin' ? 'Нет администраторов' : 'Нет преподавателей'}
+          </p>
+          <p className="text-slate-500 dark:text-slate-400 text-xs mt-2">
               {activeTab === 'admin'
                 ? 'В системе нет пользователей с ролью «Админ». Перейдите на вкладку «Преподаватель» или добавьте администратора в листе «Users».'
                 : 'В системе нет преподавателей. Перейдите на вкладку «Админ» или добавьте пользователей с ролью «Преподаватель» в листе «Users».'}
@@ -159,13 +159,13 @@ const Login: React.FC<LoginProps> = ({ onLogin, users, loadError, onRetry, isLoa
             <button 
               type="button"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className={`w-full flex items-center gap-4 px-6 py-5 rounded-[28px] border-2 transition-all text-left ${isDropdownOpen ? 'border-[#10408A] bg-white ring-4 ring-[#10408A]/5' : 'border-slate-100 bg-slate-50 hover:border-slate-200'}`}
+              className={`w-full flex items-center gap-4 px-6 py-5 rounded-[28px] border-2 transition-all text-left ${isDropdownOpen ? 'border-[#10408A] bg-white dark:bg-slate-800 ring-4 ring-[#10408A]/5' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-200 dark:hover:border-slate-600'}`}
             >
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black ${selectedUser ? 'bg-[#10408A] text-white' : 'bg-slate-200 text-slate-400'}`}>
                 {selectedUser ? getInitial(selectedUser.name) : '?'}
               </div>
               <div className="flex-1">
-                <p className={`font-bold ${selectedUser ? 'text-[#0E1C1C]' : 'text-slate-400'}`}>
+                <p className={`font-bold ${selectedUser ? 'text-[#0E1C1C] dark:text-white' : 'text-slate-400 dark:text-slate-500'}`}>
                   {selectedUser ? selectedUser.name : placeholderByTab}
                 </p>
               </div>
@@ -173,14 +173,14 @@ const Login: React.FC<LoginProps> = ({ onLogin, users, loadError, onRetry, isLoa
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute top-full left-0 right-0 mt-3 bg-white rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
-                <div className="p-4 border-b border-slate-50">
+              <div className="absolute top-full left-0 right-0 mt-3 bg-white dark:bg-slate-800 rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-600 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
+                <div className="p-4 border-b border-slate-50 dark:border-slate-700">
                   <input 
                     type="text"
                     placeholder="Поиск по имени..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full px-5 py-3 bg-slate-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#10408A] text-sm font-medium"
+                    className="w-full px-5 py-3 bg-slate-50 dark:bg-slate-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-[#10408A] text-sm font-medium"
                     autoFocus
                   />
                 </div>
@@ -214,7 +214,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, users, loadError, onRetry, isLoa
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Введите пароль"
-                className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-[28px] focus:bg-white focus:ring-4 focus:ring-[#10408A]/5 focus:border-[#10408A] outline-none transition-all placeholder:text-slate-300 font-black text-2xl tracking-[0.2em] text-center"
+                className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 dark:text-white border-2 border-transparent rounded-[28px] focus:bg-white dark:focus:bg-slate-700 focus:ring-4 focus:ring-[#10408A]/5 focus:border-[#10408A] outline-none transition-all placeholder:text-slate-300 dark:placeholder:text-slate-500 font-black text-2xl tracking-[0.2em] text-center"
                 required
               />
             </div>
