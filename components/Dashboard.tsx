@@ -119,34 +119,33 @@ const Dashboard: React.FC<DashboardProps> = ({ lessons, isAdmin, daysLeft, total
                     </svg>
                   </div>
                 )}
-                {isAdmin && (
-                    <div className="absolute top-3 right-3 flex gap-2">
+              </div>
+              <div className="p-4 sm:p-6 flex-1">
+                <div className="flex justify-between items-start mb-3">
+                  <span className="px-2 py-1 rounded-lg bg-[#10408A]/10 dark:bg-[#10408A]/20 text-[#10408A] dark:text-[#6ba3f5] text-[10px] font-bold uppercase tracking-wider">Занятие</span>
+                  {isAdmin && (
+                    <div className="flex gap-1">
                       <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onEditLesson(lesson);
-                        }}
-                        className="bg-white/90 dark:bg-slate-800/90 backdrop-blur p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-[#10408A] shadow-sm transition-colors"
+                        onClick={(e) => { e.stopPropagation(); onEditLesson(lesson); }} 
+                        className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-[#10408A] dark:hover:text-[#6ba3f5] rounded-lg transition-colors" 
+                        title="Редактировать"
                       >
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
                       </button>
                       <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onDeleteLesson(lesson.id);
-                        }}
-                        className="bg-white/90 dark:bg-slate-800/90 backdrop-blur p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-red-600 shadow-sm transition-colors"
+                        onClick={(e) => { e.stopPropagation(); onDeleteLesson(lesson.id); }} 
+                        className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 rounded-lg transition-colors" 
+                        title="Удалить"
                       >
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                       </button>
                     </div>
                   )}
-              </div>
-              <div className="p-4 sm:p-6 flex-1">
+                </div>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-1 group-hover:text-[#10408A] transition-colors">
                   {lesson.title || 'Без названия'}
                 </h3>
