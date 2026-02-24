@@ -485,8 +485,11 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                     </div>
                     {isAnswered && (
                       <div className="pt-4 sm:pt-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        {currentQuestionIndex === activeQuestions.length - 1 && (
+                          <p className="text-center text-slate-500 dark:text-slate-400 text-sm font-bold mb-3">Нажмите кнопку ниже, чтобы отправить ответы и завершить тест.</p>
+                        )}
                         <button onClick={handleNext} className="w-full py-4 sm:py-5 bg-slate-900 text-white rounded-2xl sm:rounded-[24px] font-black text-base sm:text-lg shadow-2xl transition-all active:scale-95 uppercase tracking-widest min-h-[48px]">
-                          {currentQuestionIndex < activeQuestions.length - 1 ? 'Далее' : 'Завершить'}
+                          {currentQuestionIndex < activeQuestions.length - 1 ? 'Далее' : 'Завершить тест'}
                         </button>
                       </div>
                     )}
@@ -712,8 +715,11 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
                     </div>
                     {isAnswered && (
                       <div className="pt-4 sm:pt-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        {currentQuestionIndex === activeQuestions.length - 1 && (
+                          <p className="text-center text-slate-500 dark:text-slate-400 text-sm font-bold mb-3">Нажмите кнопку ниже, чтобы отправить ответы и завершить тест.</p>
+                        )}
                         <button onClick={handleNext} className="w-full py-4 sm:py-5 bg-slate-900 text-white rounded-2xl sm:rounded-[24px] font-black text-base sm:text-lg shadow-2xl transition-all active:scale-95 uppercase tracking-widest min-h-[48px]">
-                          {currentQuestionIndex < activeQuestions.length - 1 ? 'Далее' : 'Завершить'}
+                          {currentQuestionIndex < activeQuestions.length - 1 ? 'Далее' : 'Завершить тест'}
                         </button>
                       </div>
                     )}
