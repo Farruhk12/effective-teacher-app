@@ -244,6 +244,7 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, existingResult, onB
     const finalScore = correctAnswersCount;
     const total = activeQuestions.length;
     const percentage = total > 0 ? Math.round((finalScore / total) * 100) : 0;
+    const passed = percentage >= 50;
     // Fix: Explicitly cast Object.values result to QuestionAnswer[] to avoid 'unknown[]' error
     const answers = Object.values(answerMap) as QuestionAnswer[];
     const attempt: TestAttempt = { score: finalScore, total, percentage, passed, timestamp: Date.now(), answers };
